@@ -110,7 +110,7 @@ def re22(var_iv: np.array = np.array([7.2, 10, 20])) -> MOProblem:
                             5.0, 5.28, 5.40, 5.53, 5.72, 6.0, 6.16, 6.32, 6.60, 7.11,
                             7.20, 7.80, 7.90, 8.0, 8.40, 8.69, 9.0, 9.48, 10.27, 11.0,
                             11.06, 11.85, 12.0, 13.0, 14.0, 15.0])
-
+    
     # Returns discrete value for x1
     def feas_val(x: np.ndarray) -> np.array:
         fv_2d = np.repeat(np.atleast_2d(feasible_vals), x.shape[0], axis=0)
@@ -122,11 +122,11 @@ def re22(var_iv: np.array = np.array([7.2, 10, 20])) -> MOProblem:
     def g_1(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
         x = feas_val(x)
-        return x[:, 0] * x[:, 2] - 7.735 * (x[:, 0]**2 / x[:, 1]) - 180
+        return -(x[:, 0] * x[:, 2] - 7.735 * (x[:, 0]**2 / x[:, 1]) - 180 )
 
     def g_2(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return 4 - x[:, 2] / x[:, 1]
+        return -(4 - x[:, 2] / x[:, 1])
 
     # Objective functions
     def f_1(x: np.ndarray) -> np.ndarray:
@@ -194,17 +194,17 @@ def re23(var_iv: np.array = np.array([50, 50, 100, 120])) -> MOProblem:
         x = np.atleast_2d(x)
         x = x.astype(float)
         x[:, 0] = 0.0625 * (np.round(x[:,0]))
-        return x[:, 0] - (0.0193 * x[:, 2])
+        return -(x[:, 0] - (0.0193 * x[:, 2]))
 
     def g_2(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
         x = x.astype(float)
         x[:, 1] = 0.0625 * (np.round(x[:,1]))
-        return x[:, 1] - (0.00954 * x[:, 2])
+        return -(x[:, 1] - (0.00954 * x[:, 2]))
 
     def g_3(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return (np.pi * x[:, 2]**2 * x[:, 3]) + ((4/3) * np.pi * x[:, 2]**3) - 1296000
+        return -( (np.pi * x[:, 2]**2 * x[:, 3]) + ((4/3) * np.pi * x[:, 2]**3) - 1296000 )
 
     # Objective functions
     def f_1(x: np.ndarray) -> np.ndarray:
@@ -278,19 +278,19 @@ def re24(var_iv : np.array = np.array([2, 25])) -> MOProblem:
     # Constrain functions
     def g_1(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return 1.0 - ((4500 / (x[:, 0] * x[:, 1])) / 700)
+        return -(1.0 - ((4500 / (x[:, 0] * x[:, 1])) / 700))
 
     def g_2(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return 1.0 - ((1800 / x[:, 1]) / 450)
+        return -(1.0 - ((1800 / x[:, 1]) / 450))
 
     def g_3(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return 1.0 - (((56.2 * 10000) / (700000 * x[:, 0] * x[:, 1]**2)) / 1.5)
+        return -(1.0 - (((56.2 * 10000) / (700000 * x[:, 0] * x[:, 1]**2)) / 1.5) )
 
     def g_4(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return 1.0 - ((4500 / (x[:,0] * x[:, 1])) / ((700000 * x[:, 0]**2) / 100))
+        return -(1.0 - ((4500 / (x[:,0] * x[:, 1])) / ((700000 * x[:, 0]**2) / 100)) )
 
     # Objective functions
     def f_1(x: np.ndarray) -> np.ndarray:
@@ -374,7 +374,7 @@ def re25(var_iv: np.array = np.array([35, 15, 0.207])) -> MOProblem:
     def g_1(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
         x = feas_val(x)
-        return (
+        return -(
             -((8 * (((4.0 * (x[:, 1] / x[:, 2]) - 1) / 
             (4.0 * (x[:, 1] / x[:, 2]) - 4)) + 
             ((0.615 * x[:, 2]) / x[:, 1])) * 1000 * x[:, 1]) 
@@ -384,34 +384,34 @@ def re25(var_iv: np.array = np.array([35, 15, 0.207])) -> MOProblem:
     def g_2(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
         x = feas_val(x)
-        return (
+        return -(
             - ( 1000 / ( ( 11.5 * 10**6 * x[:, 2]**4) / ( 8 * np.round(x[:, 0]) * x[:, 1]**3 ) ) ) + 1.05 * ( np.round( x[:, 0]) + 2) * x[:, 2] + 14
         )
 
     def g_3(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
         x = feas_val(x)
-        return (
+        return -(
             -3 + (x[:, 1] / x[:, 2])
         )
 
     def g_4(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return (
+        return -(
             - (300 / ((11.5 * 10**6 * x[:, 2]**4) / (8 * np.round(x[:, 0]) * x[:, 1]**3))) + 6
         )
 
     def g_5(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
         x = feas_val(x)
-        return (
+        return -(
             -(300 / ((11.5 * 10**6 * x[:, 2]**4) / (8 * np.round(x[:, 0]) * x[:, 1]**3))) - ((1000 - 300) / ((11.5 * 10**6 * x[:, 2]**4) / (8 * np.round(x[:, 0]) * x[:, 1]**3))) - (1.05 * (np.round(x[:, 0]) + 2) * x[:, 2]) + ((1000 / ((11.5 * 10**6 * x[:, 2]**4) / (8 * np.round(x[:, 0]) * x[:, 1]**3))) + (1.05 * ( np.round(x[:, 0]) + 2) * x[:, 2]))
         )
 
     def g_6(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
         x = feas_val(x)
-        return (
+        return -(
             -1.25 + ((1000 - 300) / ((11.5 * 10**6 * x[:, 2]**4) / (8 * np.round(x[:, 0]) * x[:, 1]**3)))
         )
 
@@ -507,19 +507,19 @@ def re31(var_iv: np.array = np.array([50.0, 50.0, 2.0])) -> MOProblem:
     # Constrain functions
     def g_1(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return (
+        return -(
             0.1 - f_1(x)
         )
 
     def g_2(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return (
+        return -(
             10**5 - f_2(x)
             )
 
     def g_3(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return (
+        return -(
             10**5 
             - ((80 * np.sqrt(1 + x[:, 2]**2 ) 
             / (x[:, 2] * x[:, 1])))
@@ -621,26 +621,26 @@ def re32(var_iv: np.array = np.array([2.5, 5.0, 5.0, 2.5])) -> MOProblem:
     # Constrain functions
     def g_1(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return (
+        return -(
             13600 - tau(x)
         )
 
     def g_2(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return (
+        return -(
             30000 - sigma(x)
         )
 
     def g_3(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return (
+        return -(
             x[:, 3] - x[:, 0]
         )
             
 
     def g_4(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return (
+        return -(
             p_c(x) - 6000
         )
 
@@ -726,19 +726,19 @@ def re33(var_iv: np.array = np.array([67.5, 92.5, 2000, 15])) -> MOProblem:
     # Constrain functions
     def g_1(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return (
+        return -(
             (x[:, 1] - x[:, 0]) - 20
         )
 
     def g_2(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return (
+        return -(
             0.4 - (x[:, 2] / (3.14 * (x[:, 1]**2 - x[:, 0]**2)))
         )
 
     def g_3(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return (
+        return -(
             1 - ((2.22 * 10**-3 * x[:, 2] * (x[:, 1]**3 - x[:, 0]**3)) / 
             (x[:, 1]**2 - x[:, 0]**2)**2)
         )
@@ -746,7 +746,7 @@ def re33(var_iv: np.array = np.array([67.5, 92.5, 2000, 15])) -> MOProblem:
 
     def g_4(x: np.ndarray, _ = None) -> np.ndarray:
         x = np.atleast_2d(x)
-        return (
+        return -(
             ((2.66 * 10**-2 * x[:, 2] * x[:, 3] * (x[:, 1]**3 - x[:, 0]**3)) / 
             (x[:, 1]**2 - x[:, 0]**2)) - 900
         )
@@ -800,3 +800,3248 @@ def re33(var_iv: np.array = np.array([67.5, 92.5, 2000, 15])) -> MOProblem:
     problem = MOProblem(variables=variables, objectives=objectives, constraints=constraints)
 
     return problem
+
+#Add Json formulas 
+def re34():
+    re34_json = {
+    "constants":[],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x_1",
+            "lowerbound":1,
+            "upperbound":3,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x_2",
+            "lowerbound":1,
+            "upperbound":3,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":1,
+            "upperbound":3,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_4",
+            "lowerbound":1,
+            "upperbound":3,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_5",
+            "lowerbound":1,
+            "upperbound":3,
+            "type":"RealNumber",
+            "initialvalue":None
+        }
+    ],
+    "extra_func":[
+    ],
+    "objectives":[  
+        {
+            "longname":"minimize structural volume",
+            "shortname":"f1",
+            "func":
+                [
+                    "Add",
+                    ["Multiply", 2.3573285, "x_1"],
+                    ["Multiply", 2.3220035, "x_2"],
+                    ["Multiply", 4.5688768, "x_3"],
+                    ["Multiply", 7.7213633, "x_4"],
+                    ["Multiply", 4.4559504, "x_5"],
+                    1640.2823
+                ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f2",
+            "func":[
+                    "Add", 
+                    ["Multiply", -0.1106, ["Square", "x_1"]], 
+                    ["Multiply", -0.3437, ["Square", "x_3"]], 
+                    ["Multiply", 0.1764, ["Square", "x_4"]], 
+                    ["Multiply", 1.15, "x_1"], 
+                    ["Multiply", -0.3695, "x_1", "x_4"], 
+                    ["Multiply", 0.0861, "x_1", "x_5"], 
+                    ["Multiply", -1.0427, "x_2"], 
+                    ["Multiply", 0.3628, "x_2", "x_4"], 
+                    ["Multiply", 0.9738, "x_3"], 
+                    ["Multiply", 0.8364, "x_4"], 
+                    6.5856
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f3",
+            "func":[
+                "Add", 
+                ["Multiply", -0.0241, ["Square", "x_2"]], 
+                ["Multiply", 0.0109, ["Square", "x_4"]], 
+                ["Multiply", 0.0181, "x_1"], 
+                ["Multiply", -0.0073, "x_1", "x_2"], 
+                ["Multiply", 0.1024, "x_2"], 
+                ["Multiply", 0.024, "x_2", "x_3"], 
+                ["Multiply", -0.0118, "x_2", "x_4"], 
+                ["Multiply", 0.0421, "x_3"], 
+                ["Multiply", -0.0204, "x_3", "x_4"], 
+                ["Multiply", -0.008, "x_3", "x_5"], 
+                -0.0551
+                ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "constraints":[],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=re34_json)
+    return p
+
+def re36():
+    re36_json = {
+    "constants":[],
+    "variables":[
+        {
+            "shortname":"x_1",
+            "lowerbound":12,
+            "upperbound":60,
+            "type":"Integer",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_2",
+            "lowerbound":12,
+            "upperbound":60,
+            "type":"Integer",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":12,
+            "upperbound":60,
+            "type":"Integer",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_4",
+            "lowerbound":12,
+            "upperbound":60,
+            "type":"Integer",
+            "initialvalue":None
+        }
+    ],
+    "extra_func":[
+        {
+            "shortname":"f_1",
+            "func":["Abs",
+                ["Subtract", 
+                 6.931, 
+                 ["Divide", 
+                  ["Multiply", ["Floor","x_3"], ["Floor","x_4"]], 
+                  ["Multiply", ["Floor","x_1"], ["Floor","x_2"]] ]
+                ]],
+        },
+        {
+            "shortname":"g_1",
+            "func":["Add", ["Divide", "f_1", 6.931], -0.5],
+        },
+    ],
+    "objectives":[  
+        {
+            "shortname":"f1",
+            "func":"f_1",
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f2",
+            "func":["Max",["Floor","x_1"],
+                    ["Max",["Floor","x_2"],
+                     ["Max",["Floor","x_3"],["Floor","x_4"]]]],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f3",
+            "func":["Max","g_1",0],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "constraints":[],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=re36_json)
+    return p
+
+def re35():
+    re35_json = {
+    "constants":[],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x_1",
+            "lowerbound":2.6,
+            "upperbound":3.6,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x_2",
+            "lowerbound":0.7,
+            "upperbound":0.8,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":17,
+            "upperbound":28,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_4",
+            "lowerbound":7.3,
+            "upperbound":8.3,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_5",
+            "lowerbound":7.3,
+            "upperbound":8.3,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_6",
+            "lowerbound":2.9,
+            "upperbound":3.9,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_7",
+            "lowerbound":5.0,
+            "upperbound":5.5,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+    ],
+    "extra_func":[
+        {
+            "shortname":"tmpVar1",
+            "func":[
+                    "Add", 
+                    [
+                        "Multiply", 
+                        ["Square", 745], 
+                        ["Square", "x_4"], 
+                        [
+                        "Square", 
+                        ["Divide", 1, ["Multiply", "x_2", "x_3"]]
+                        ]
+                    ], 
+                    ["Multiply", 1.69, 1e7]
+                    ],
+        },
+        {
+            "shortname":"tmpVar2",
+            "func":["Add", ["Multiply", ["Square", 745], 
+                        ["Square", "x_5"], 
+                        [
+                        "Square", 
+                        ["Divide", 1, ["Multiply", "x_2", "x_3"]]
+                        ]
+                    ], ["Multiply", 1.575, 1e8]
+                    ],
+        },
+        { 
+            "shortname":"f_1",
+            "func":
+            ["Add", 
+             ["Multiply", 0.7854, 
+                ["Add", ["Multiply","x_4",["Square", "x_6"]], 
+                        ["Multiply","x_5",["Square", "x_7"]]
+                ]
+             ],
+             ["Multiply",7.477, 
+                ["Add", ["Power", "x_6", 3], ["Power", "x_7", 3] ]
+             ],
+             ["Multiply", -1.508, "x_1", ["Add", ["Square", "x_6"], ["Square", "x_7"]]],    
+            ["Multiply", 0.7854, "x_1", ["Square", "x_2"],
+             ["Add", 
+                [
+                    "Multiply", 
+                    ["Rational", 10, 3], 
+                    ["Square", "x_3"]
+                ], 
+                ["Multiply", 14.933, "x_3"], 
+                -43.0934
+            ]
+            ]
+            ],
+        },
+        {
+            "shortname":"f_2",
+            "func":["Divide", ["Sqrt", "tmpVar1"], ["Multiply", 0.1, ["Power", "x_6", 3]]],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"g_1",
+            "func":["Max",
+                    ["Subtract",
+                     ["Divide",1, ["Multiply", "x_1", "x_3", ["Square", "x_2"]]], 
+                     ["Rational", 1, 27]]
+                    ,0],
+        },
+        {
+            "shortname":"g_2",
+            "func":["Max",[
+                        "Add", 
+                        ["Divide", -1, 397.5], 
+                        [
+                            "Divide", 
+                            1, 
+                            [
+                            "Multiply", 
+                            "x_1", 
+                            ["Square", "x_2"], 
+                            ["Square", "x_3"]
+                            ]
+                        ]
+                        ]
+,0],
+        },
+        {
+            "shortname":"g_3",
+            "func":["Max",[
+                        "Add", 
+                        ["Divide", -1, 1.93], 
+                        [
+                            "Divide", 
+                            ["Power", "x_4", 3], 
+                            [
+                            "Multiply", 
+                            "x_2", 
+                            "x_3", 
+                            ["Power", "x_6", 4]
+                            ]
+                        ]
+                        ]
+                    ,0],
+        },
+        {
+            "shortname":"g_4",
+            "func":["Max",[
+                    "Add", 
+                    ["Divide", -1, 1.93], 
+                    [
+                        "Divide", 
+                        ["Power", "x_5", 3], 
+                        [
+                        "Multiply", 
+                        "x_2", 
+                        "x_3", 
+                        ["Power", "x_7", 4]
+                        ]
+                    ]
+                    ]
+                ,0],
+        },
+
+        {
+            "shortname":"g_5",
+            "func":["Max",
+                    ["Subtract", ["Multiply", "x_2", "x_3"], 40]
+                    ,0],
+        },
+        {
+            "shortname":"g_6",
+            "func":["Max",
+                    ["Subtract", ["Divide", "x_1", "x_2"], 12]
+                    ,0],
+        },
+        {
+            "shortname":"g_7",
+            "func":["Max",
+                    ["Add", ["Divide", ["Negate", "x_1"], "x_2"], 5]
+                    ,0],
+        },
+                {
+            "shortname":"g_8",
+            "func":["Max",
+                    ["Add", ["Multiply", 1.5, "x_6"], ["Negate", "x_4"], 1.9]
+                    ,0],
+        },
+        {
+            "shortname":"g_9",
+            "func":["Max",
+                    ["Add", ["Multiply", 1.1, "x_7"], ["Negate", "x_5"], 1.9]
+                    ,0],
+        },
+                {
+            "shortname":"g_10",
+            "func":["Max",
+                    ["Subtract", 
+                     "f_2",
+                      1300]
+                    ,0],
+        },
+                {
+            "shortname":"g_11",
+            "func":["Max",
+                    ["Subtract", 
+                     ["Divide", ["Sqrt", "tmpVar2"], 
+                      ["Multiply", 0.1, ["Power", "x_7", 3]]], 1100]
+                    ,0],
+        }
+    ],
+    "objectives":[  
+        {
+            "shortname":"f1",
+            "func":"f_1",
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f2",
+            "func":"f_2",
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f3",
+            "func":["Sum", ["Max","g_i",0], ["Triple", ["Hold", "i"], 1, 11]],
+            "max": False,   
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "constraints":[],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=re35_json)
+    return p
+
+def re37():
+    re37_json = {
+    "constants":[],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x_1",
+            "lowerbound":0,
+            "upperbound":1,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x_2",
+            "lowerbound":0,
+            "upperbound":1,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":0,
+            "upperbound":1,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_4",
+            "lowerbound":0,
+            "upperbound":1,
+            "type":"RealNumber",
+            "initialvalue":None
+        }
+    ],
+    "extra_func":[
+    ],
+    "objectives":[  
+        {
+            "longname":"minimize structural volume",
+            "shortname":"f1",
+            "func":
+                [
+                "Add", 
+                ["Multiply", -0.167, ["Square", "x_1"]], 
+                ["Multiply", 0.0796, ["Square", "x_2"]], 
+                ["Multiply", 0.0877, ["Square", "x_3"]], 
+                ["Multiply", 0.0184, ["Square", "x_4"]], 
+                ["Multiply", 0.477, "x_1"], 
+                ["Multiply", -0.0129, "x_1", "x_2"], 
+                ["Multiply", -0.0634, "x_1", "x_3"], 
+                ["Multiply", -0.0521, "x_1", "x_4"], 
+                ["Multiply", -0.687, "x_2"], 
+                ["Multiply", -0.0257, "x_2", "x_3"], 
+                ["Multiply", 0.00156, "x_2", "x_4"], 
+                ["Multiply", -0.08, "x_3"], 
+                ["Multiply", 0.00198, "x_3", "x_4"], 
+                ["Multiply", -0.065, "x_4"], 
+                0.692
+            ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f2",
+            "func":[
+                    "Add", 
+                    ["Multiply", 0.175, ["Square", "x_1"]], 
+                    ["Multiply", -0.0701, ["Square", "x_2"]], 
+                    ["Multiply", 0.015, ["Square", "x_3"]], 
+                    ["Multiply", 0.0192, ["Square", "x_4"]], 
+                    ["Multiply", -0.322, "x_1"], 
+                    ["Multiply", 0.0185, "x_1", "x_2"], 
+                    ["Multiply", -0.251, "x_1", "x_3"], 
+                    ["Multiply", 0.0134, "x_1", "x_4"], 
+                    ["Multiply", 0.396, "x_2"], 
+                    ["Multiply", 0.179, "x_2", "x_3"], 
+                    ["Multiply", 0.0296, "x_2", "x_4"], 
+                    ["Multiply", 0.424, "x_3"], 
+                    ["Multiply", 0.0752, "x_3", "x_4"], 
+                    ["Multiply", 0.0226, "x_4"], 
+                    0.153
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f3",
+            "func":[
+                    "Add", 
+                    ["Multiply", -0.135, ["Square", "x_1"]], 
+                    ["Multiply", 0.0998, ["Square", "x_2"]], 
+                    ["Multiply", -0.226, ["Square", "x_3"]], 
+                    ["Multiply", -0.423, ["Square", "x_4"]], 
+                    ["Multiply", -0.205, "x_1"], 
+                    ["Multiply", -0.342, "x_1", ["Square", "x_2"]], 
+                    ["Multiply", -0.184, "x_1", ["Square", "x_4"]], 
+                    ["Multiply", 0.0141, "x_1", "x_2"], 
+                    ["Multiply", -0.281, "x_1", "x_2", "x_3"], 
+                    ["Multiply", 0.208, "x_1", "x_3"], 
+                    ["Multiply", 0.353, "x_1", "x_4"], 
+                    ["Multiply", 0.0307, "x_2"], 
+                    ["Multiply", 0.202, "x_2", ["Square", "x_1"]], 
+                    ["Multiply", 0.281, "x_2", ["Square", "x_3"]], 
+                    ["Multiply", -0.0301, "x_2", "x_3"], 
+                    ["Multiply", 0.108, "x_3"], 
+                    ["Multiply", -0.281, "x_3", ["Square", "x_1"]], 
+                    ["Multiply", -0.245, "x_3", ["Square", "x_2"]], 
+                    ["Multiply", -0.0497, "x_3", "x_4"], 
+                    ["Multiply", 1.019, "x_4"], 
+                    0.37
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "constraints":[],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=re37_json)
+    return p
+
+def re41():
+    re41_json = {
+    "constants":[],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x_1",
+            "lowerbound":0.5,
+            "upperbound":1.5,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x_2",
+            "lowerbound":0.45,
+            "upperbound":1.35,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":0.5,
+            "upperbound":1.5,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_4",
+            "lowerbound":0.5,
+            "upperbound":1.5,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+                {
+            "shortname":"x_5",
+            "lowerbound":0.875,
+            "upperbound":2.625,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_6",
+            "lowerbound":0.4,
+            "upperbound":1.2,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+                {
+            "shortname":"x_7",
+            "lowerbound":0.4,
+            "upperbound":1.2,
+            "type":"RealNumber",
+            "initialvalue":None
+        }
+    ],
+    "extra_func":[
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_1",
+            "func":["Negate",[
+                "Add", 
+                ["Multiply", 0.3717, "x_2", "x_4"], 
+                ["Multiply", 0.0092928, "x_3"], 
+                -1.16, 
+                1
+                ]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_2",
+            "func":["Negate",[
+                "Add", 
+                ["Multiply", 0.06486, "x_1"], 
+                ["Multiply", 0.0159, "x_1", "x_2"], 
+                ["Multiply", 0.019, "x_2", "x_7"], 
+                ["Multiply", -0.0144, "x_3", "x_5"], 
+                ["Multiply", -0.0154464, "x_6"], 
+                -0.261, 
+                0.32
+                ]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_3",
+            "func":["Negate",[
+                "Add", 
+                ["Multiply", 0.018, ["Square", "x_2"]], 
+                ["Multiply", 0.045195, "x_1"], 
+                ["Multiply", 0.0135168, "x_1"], 
+                ["Multiply", -0.03099, "x_2", "x_6"], 
+                ["Multiply", 0.018, "x_2", "x_7"], 
+                ["Multiply", -0.007176, "x_3"], 
+                ["Multiply", -0.023232, "x_3"], 
+                ["Multiply", -0.00817, "x_5"], 
+                ["Multiply", 0.00364, "x_5", "x_6"], 
+                -0.214, 
+                0.32
+                ]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_4",
+            "func":["Negate",[
+                "Add", 
+                ["Multiply", -0.227, ["Square", "x_2"]], 
+                ["Multiply", 0.61, "x_2"], 
+                ["Multiply", 0.031296, "x_3"], 
+                ["Multiply", 0.031872, "x_7"], 
+                -0.74, 
+                0.32
+                ]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_5",
+            "func":["Negate",[
+  "Add", 
+  ["Multiply", 4.2, "x_1", "x_2"], 
+  ["Multiply", -3.818, "x_3"], 
+  ["Multiply", -1.27296, "x_6"], 
+  ["Multiply", 2.68065, "x_7"], 
+  -28.98, 
+  32
+]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_6",
+            "func":["Negate",[
+  "Add", 
+  ["Multiply", 5.057, "x_1", "x_2"], 
+  ["Multiply", 3.795, "x_2"], 
+  ["Multiply", -2.95, "x_3"], 
+  ["Multiply", 3.4431, "x_7"], 
+  -33.86, 
+  -1.45728, 
+  32
+]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_7",
+            "func":["Negate",[
+  "Add", 
+  ["Multiply", 4.4505, "x_1"], 
+  ["Multiply", 9.9, "x_2"], 
+  -46.36, 
+  32
+]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_8",
+            "func":["Negate",[
+                "Add", 
+                ["Multiply", 0.19, "x_2", "x_3"], 
+                ["Multiply", 0.5, "x_4"], 
+                -4.72, 
+                4
+                ]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_9",
+            "func":["Negate",[
+    "Add", 
+    ["Multiply", 0.674, "x_1", "x_2"], 
+    ["Multiply", 0.67275, "x_2"], 
+    -10.58, 
+    9.9
+    ]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_10",
+            "func":["Negate",[
+                "Add", 
+                ["Multiply", 0.489, "x_3", "x_7"], 
+                ["Multiply", 0.843, "x_5", "x_6"], 
+                -16.45, 
+                15.7
+                ]],
+        }
+    ],
+    "objectives":[  
+        {
+            "longname":"minimize structural volume",
+            "shortname":"f1",
+            "func":
+                [
+                    "Add", 
+                    ["Multiply", 4.9, "x_1"], 
+                    ["Multiply", 6.67, "x_2"], 
+                    ["Multiply", 6.98, "x_3"], 
+                    ["Multiply", 4.01, "x_4"], 
+                    ["Multiply", 1.78, "x_5"], 
+                    ["Multiply", 0.00001, "x_6"], 
+                    ["Multiply", 2.73, "x_7"], 
+                    1.98
+
+            ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f2",
+            "func":[
+                    "Add", 
+                    ["Multiply", -0.19, "x_2", "x_3"], 
+                    ["Multiply", -0.5, "x_4"], 
+                    4.72
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f3",
+            "func":[
+                    "Multiply", 
+                    0.5, 
+                    [
+                        "Add", 
+                        ["Multiply", -0.674, "x_1", "x_2"], 
+                            ["Multiply", -0.67275, "x_2"], 
+                        ["Multiply", -0.489, "x_3", "x_7"], 
+                        ["Multiply", -0.843, "x_5", "x_6"], 
+                        10.58, 
+                        16.45
+                    ]
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f4",
+            "func":["Sum", ["Max","g_i",0], ["Triple", ["Hold", "i"], 1, 10]],
+            "max": False,   
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "constraints":[],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=re41_json)
+    return p
+
+def re42():
+    re42_json = {
+    "constants":[
+        {"shortname":"g","value":9.8065},
+        {"shortname":"round_trip_miles","value":5000.0},
+        {"shortname":"handling_rate","value":8000.0},
+        {"shortname":"fuel_price","value":100.0}
+    ],
+    "variables":[
+        {
+            "shortname":"x_1",
+            "lowerbound":150,
+            "upperbound":274.32,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_2",
+            "lowerbound":20,
+            "upperbound":32.31,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":13,
+            "upperbound":25.0,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_4",
+            "lowerbound":10.0,
+            "upperbound":11.71,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+                {
+            "shortname":"x_5",
+            "lowerbound":14.0,
+            "upperbound":18.0,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_6",
+            "lowerbound":0.63,
+            "upperbound":0.75,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+    ],
+    "extra_func":[
+        {
+            "shortname":"displacement",
+            "func":[
+                    "Multiply", 
+                    1.025, 
+                    "x_1", 
+                    "x_2", 
+                    "x_4", 
+                    "x_6"
+                    ],
+        },
+        {
+            "shortname":"V",
+            "func":[
+                    "Multiply", 
+                    0.5144, 
+                    "x_5"
+                    ],
+        },
+        {
+            "shortname":"Fn",
+            "func":[
+                    "Divide", 
+                    "V", 
+                    ["Sqrt", ["Multiply", "g", "x_1"]]
+                    ],
+        },
+        {
+            "shortname":"a",
+            "func":[
+                    "Add", 
+                    ["Multiply", 4977.06, ["Square", "x_6"]], 
+                    ["Multiply", -8105.61, "x_6"], 
+                    4456.51
+                    ],
+        },
+        {
+            "shortname":"b",
+            "func":[
+                    "Add", 
+                    ["Multiply", -10847.2, ["Square", "x_6"]], 
+                    ["Multiply", 12817, "x_6"], 
+                    -6960.32
+                    ],
+        },
+        {
+            "shortname":"power",
+            "func":[
+                    "Divide", 
+                    [
+                        "Multiply", 
+                        ["Power", "x_5", 3], 
+                        ["Power", "displacement", ["Rational", 2, 3]]
+                    ], 
+                    ["Add", ["Multiply", "b", "Fn"], "a"]
+                    ],
+        },
+        {
+            "shortname":"outfit_weight",
+            "func":[
+                    "Multiply", 
+                    ["Power", "x_1", 0.8], 
+                    ["Power", "x_2", 0.6], 
+                    ["Power", "x_3", 0.3], 
+                    ["Power", "x_6", 0.1]
+                    ],
+        },
+        {
+            "shortname":"steel_weight",
+            "func":[
+                    "Multiply", 
+                    0.034, 
+                    ["Power", "x_1", 1.7], 
+                    ["Power", "x_2", 0.7], 
+                    ["Power", "x_3", 0.4], 
+                    ["Sqrt", "x_6"]
+                    ],
+        },
+        {
+            "shortname":"machinery_weight",
+            "func":["Multiply", 0.17, ["Power", "power", 0.9]],
+        },
+        {
+            "shortname":"light_ship_weight",
+            "func":[
+                "Add", 
+                "steel_weight", 
+                "outfit_weight", 
+                "machinery_weight"
+                ],
+        },
+
+        {
+            "shortname":"ship_cost",
+            "func":[
+                "Multiply", 
+                1.3, 
+                [
+                    "Add", 
+                    ["Multiply", 2000, ["Power", "steel_weight", 0.85]], 
+                    ["Multiply", 2400, ["Power", "power", 0.8]], 
+                    ["Multiply", 3500, "outfit_weight"]
+                ]
+                ],
+        },
+        {
+            "shortname":"capital_costs",
+            "func":[
+                "Multiply", 
+                0.2, 
+                "ship_cost"
+                ],
+        },
+        {
+            "shortname":"DWT",
+            "func":["Subtract", "displacement", "light_ship_weight"],
+        },
+        {
+            "shortname":"running_costs",
+            "func":["Multiply", 40000, ["Power", "DWT", 0.3]],
+        },
+        {
+            "shortname":"sea_days",
+            "func":["Multiply", ["Divide", 5000.0, 24], "x_5",],
+        },
+        {
+            "shortname":"daily_consumption",
+            "func":["Add", ["Multiply", ["Rational", 3, 125], 0.19, "power"], 0.2 ],
+        },
+        {
+            "shortname":"fuel_cost",
+            "func":[
+                "Multiply", 
+                "daily_consumption", 
+                "sea_days", 
+                "fuel_price",
+                1.05
+                ],
+        },
+        {
+            "shortname":"port_cost",
+            "func":["Multiply", 6.3, ["Power", "DWT", 0.8]],
+        },
+        {
+            "shortname":"fuel_carried",
+            "func":["Multiply", "daily_consumption", ["Add","sea_days",5] ],
+        },
+        {
+            "shortname":"miscellaneous_DWT",
+            "func":["Multiply", 2, ["Power", "DWT", 0.5]],
+        },
+        {
+            "shortname":"cargo_DWT",
+            "func":["Subtract", "DWT", "fuel_carried", "miscellaneous_DWT"],
+        },
+        {
+            "shortname":"port_days",
+            "func":["Multiply", 2, ["Add", ["Divide", "cargo_DWT", "handling_rate"], 0.5]],
+        },
+        {
+            "shortname":"RTPA",
+            "func":["Divide", 350, ["Add", "sea_days", "port_days"]],
+        },
+        {
+            "shortname":"voyage_costs",
+            "func":["Multiply", "RTPA", ["Add", "fuel_cost", "port_cost"]],
+        },
+        {
+            "shortname":"annual_costs",
+            "func":["Add", "capital_costs", "running_costs","voyage_costs"],
+        },
+        {
+            "shortname":"annual_cargo",
+            "func":["Multiply", "cargo_DWT", "RTPA"],
+        },
+
+        {
+            "shortname":"g_1",
+            "func":["Negate",["Subtract", ["Divide", "x_1", "x_2"], 6] ],
+        },
+        {
+            "shortname":"g_2",
+            "func":["Negate", ["Subtract", 15, ["Divide", "x_1", "x_3"]]],
+        },
+        {
+            "shortname":"g_3",
+            "func":["Negate", ["Subtract", 19,["Divide", "x_1", "x_4"]]],
+        },
+        {
+            "shortname":"g_4",
+            "func":["Negate", ["Subtract", ["Multiply", 0.45, ["Power", "DWT", 0.31]], "x_4"] ],
+        },
+        {
+            "shortname":"g_5",
+            "func":["Negate",["Add", ["Multiply", 0.7, "x_3"], ["Negate", "x_4"], 0.7] ],
+        },
+        {
+            "shortname":"g_6",
+            "func":["Negate",["Subtract", 500000.0, "DWT"] ],
+        },
+        {
+            "shortname":"g_7",
+            "func":["Negate",["Subtract","DWT",3000.0] ],
+        },
+        {
+            "shortname":"g_8",
+            "func":["Negate",["Subtract",3000.0,"Fn"] ],
+        },
+        {
+            "shortname":"g_9",
+            "func":["Negate",[
+                "Add", 
+                [
+                    "Divide", 
+                    [
+                    "Multiply", 
+                    ["Add", ["Multiply", 0.085, "x_6"], -0.002], 
+                    ["Square", "x_2"]
+                    ], 
+                    ["Multiply", "x_4", "x_6"]
+                ], 
+                ["Multiply", -0.07, "x_2"], 
+                ["Multiply", -0.52, "x_3"], 
+                ["Multiply", 0.53, "x_4"], 
+                -1
+                ]],
+        },
+
+    ],
+    "objectives":[  
+        {
+            "longname":"minimize structural volume",
+            "shortname":"f1",
+            "func":["Divide", "annual_costs", "annual_cargo"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f2",
+            "func":["Add", "steel_weight", "outfit_weight", "machinery_weight"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f3",
+            "func":["Negate",[ "Multiply", "cargo_DWT", "RTPA"]],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f4",
+            "func":["Sum", ["Max","g_i",0], ["Triple", ["Hold", "i"], 1, 9]],
+            "max": False,   
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "constraints":[],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=re42_json)
+    return p
+
+def re61():
+    re61_json = {
+    "constants":[],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x_1",
+            "lowerbound":0.01,
+            "upperbound":0.45,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x_2",
+            "lowerbound":0.01,
+            "upperbound":0.1,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":0.01,
+            "upperbound":0.1,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+    ],
+    "extra_func":[
+        {
+            "shortname":"g_1",
+            "func":["Negate",[
+                    "Add", 
+                    ["Divide", -0.00139, ["Multiply", "x_1", "x_2"]], 
+                    ["Multiply", -4.94, "x_3"], 
+                    0.08, 
+                    1
+                    ]],
+        },
+        {
+            "shortname":"g_2",
+            "func":["Negate",[
+                "Add", 
+                ["Divide", -0.000306, ["Multiply", "x_1", "x_2"]], 
+                ["Multiply", -1.082, "x_3"], 
+                0.0986, 
+                1
+                ]],
+        },
+        {
+            "shortname":"g_3",
+            "func":["Negate",[
+                    "Add", 
+                    ["Divide", -12.307, ["Multiply", "x_1", "x_2"]], 
+                    ["Multiply", -49408.24, "x_3"], 
+                    -4051.02, 
+                    50000
+                    ]],
+        },
+        {
+            "shortname":"g_4",
+            "func":["Negate",[
+                    "Add", 
+                    ["Divide", -2.098, ["Multiply", "x_1", "x_2"]], 
+                    ["Multiply", -8046.33, "x_3"], 
+                    696.71, 
+                    16000
+                    ]],
+        },
+        {
+            "shortname":"g_5",
+            "func":["Negate",[
+                    "Add", 
+                    ["Divide", -2.138, ["Multiply", "x_1", "x_2"]], 
+                    ["Multiply", -7883.39, "x_3"], 
+                    705.04, 
+                    10000
+                    ]],
+        },
+        {
+            "shortname":"g_6",
+            "func":["Negate",[
+                    "Add", 
+                    ["Multiply", -0.417, "x_1", "x_2"], 
+                    ["Multiply", -1721.26, "x_3"], 
+                    136.54, 
+                    2000
+                    ]],
+        },
+                {
+            "shortname":"g_7",
+            "func":["Negate", [
+                    "Add", 
+                    ["Divide", -0.164, ["Multiply", "x_1", "x_2"]], 
+                    ["Multiply", -631.13, "x_3"], 
+                    54.48, 
+                    550
+                    ] ],
+        },
+    ],
+    "objectives":[  
+        {
+            "longname":"minimize structural volume",
+            "shortname":"f1",
+            "func":["Add", ["Multiply", 106780.37, ["Add", "x_2", "x_3"]], 61704.67],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f2",
+            "func":["Multiply", 3000,"x_1"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f3",
+            "func":["Multiply", 699747300, "x_2", ["Power", ["Multiply", 2289, 0.06], -0.65]],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f4",
+            "func":[
+                    "Multiply", 
+                    572250, 
+                    [
+                        "Exp", 
+                        [
+                        "Add", 
+                        ["Multiply", -39.75, "x_2"], 
+                        ["Multiply", 9.9, "x_3"], 
+                        2.74
+                        ]
+                    ]
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f5",
+            "func":[
+                    "Multiply", 
+                    25, 
+                    [
+                        "Add", 
+                        ["Divide", 1.39, ["Multiply", "x_1", "x_2"]], 
+                        ["Multiply", 4940, "x_3"], 
+                        -80
+                    ]
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f6",
+            "func":["Sum", ["Max","g_i",0], ["Triple", ["Hold", "i"], 1, 7]],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "constraints":[],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=re61_json)
+    return p
+
+def re91():
+    re61_json = {
+    "constants":[],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x_1",
+            "lowerbound":0.5,
+            "upperbound":1.5,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x_2",
+            "lowerbound":0.45,
+            "upperbound":1.35,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":0.5,
+            "upperbound":1.5,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+                {
+            "shortname":"x_4",
+            "lowerbound":0.5,
+            "upperbound":1.5,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+                {
+            "shortname":"x_5",
+            "lowerbound":0.875,
+            "upperbound":2.625,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+                {
+            "shortname":"x_6",
+            "lowerbound":0.4,
+            "upperbound":1.2,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+                {
+            "shortname":"x_7",
+            "lowerbound":0.4,
+            "upperbound":1.2,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_8",
+            "lowerbound":0.345,
+            "upperbound":0.351,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_9",
+            "lowerbound":0.192,
+            "upperbound":0.198,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+                        {
+            "shortname":"x_10",
+            "lowerbound":0,
+            "upperbound":10,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+                                {
+            "shortname":"x_11",
+            "lowerbound":0,
+            "upperbound":10,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+    ],
+    "extra_func":[
+        {
+            "shortname":"f_1",
+            "func":[
+                    "Add", 
+                    ["Multiply", 4.9, "x_1"], 
+                    ["Multiply", 6.67, "x_2"], 
+                    ["Multiply", 6.98, "x_3"], 
+                    ["Multiply", 4.01, "x_4"], 
+                    ["Multiply", 1.75, "x_5"], 
+                    ["Multiply", 0.00001, "x_6"], 
+                    ["Multiply", 2.73, "x_7"], 
+                    1.98
+                    ],
+        },
+        {
+            "shortname":"f_2",
+            "func":[
+                    "Add", 
+                    ["Multiply", -0.00931, "x_10", "x_2"], 
+                    ["Multiply", 0.01343, "x_10", "x_6"], 
+                    ["Multiply", -0.3717, "x_2", "x_4"], 
+                    ["Multiply", -0.484, "x_3", "x_9"], 
+                    1.16
+                    ],
+        },
+        {
+            "shortname":"f_3",
+            "func":[
+                    "Divide", 
+                    [
+                        "Add", 
+                        ["Multiply", -0.0159, "x_1", "x_2"], 
+                        ["Multiply", -0.188, "x_1", "x_8"], 
+                        ["Multiply", 0.00001575, "x_10", "x_11"], 
+                        ["Multiply", 0.87570001, "x_10", "x_5"], 
+                        ["Multiply", 0.00139, "x_11", "x_8"], 
+                        ["Multiply", -0.019, "x_2", "x_7"], 
+                        ["Multiply", 0.0144, "x_3", "x_5"], 
+                        ["Multiply", 0.08045, "x_6", "x_9"], 
+                        0.261
+                    ], 
+                    0.32
+                    ],
+        },
+        {
+            "shortname":"f_4",
+            "func":[
+                    "Divide", 
+                    [
+                        "Add", 
+                        ["Multiply", -0.018, ["Square", "x_2"]], 
+                        ["Multiply", -0.131, "x_1", "x_8"], 
+                        ["Multiply", -0.0704, "x_1", "x_9"], 
+                        ["Multiply", 0.0007715, "x_10", "x_5"], 
+                        ["Multiply", 0.00184, "x_10", "x_9"], 
+                        ["Multiply", 0.00121, "x_11", "x_8"], 
+                        ["Multiply", 0.03099, "x_2", "x_6"], 
+                        ["Multiply", -0.018, "x_2", "x_7"], 
+                        ["Multiply", 0.0208, "x_3", "x_8"], 
+                        ["Multiply", 0.121, "x_3", "x_9"], 
+                        ["Multiply", 0.00817, "x_5"], 
+                        ["Multiply", -0.00364, "x_5", "x_6"], 
+                        0.214
+                    ], 
+                    0.32
+                    ],
+        },
+        {
+            "shortname":"f_5",
+            "func":[
+                    "Divide", 
+                    [
+                        "Add", 
+                        ["Multiply", 0.227, ["Square", "x_2"]], 
+                        ["Multiply", 0.001232, "x_10", "x_3"], 
+                        ["Multiply", -0.61, "x_2"], 
+                        ["Multiply", -0.163, "x_3", "x_8"], 
+                        ["Multiply", -0.166, "x_7", "x_9"], 
+                        0.74
+                    ], 
+                    0.32
+                    ],
+        },
+        {
+            "shortname":"f_6",
+            "func":[
+                    "Multiply", 
+                    ["Rational", 32, 3], 
+                    [
+                        "Add", 
+                        ["Multiply", -4.2, "x_1", "x_2"], 
+                        ["Multiply", -5.057, "x_1", "x_2"], 
+                        ["Multiply", -12.9, "x_1", "x_8"], 
+                        ["Multiply", 0.1792, "x_10"], 
+                        ["Multiply", 0.1107, "x_10", "x_3"], 
+                        ["Multiply", 0.0207, "x_10", "x_5"], 
+                        ["Multiply", -0.0215, "x_10", "x_5"], 
+                        ["Multiply", 0.32, "x_10", "x_9"], 
+                        ["Multiply", -9.9, "x_2"], 
+                        ["Multiply", -11, "x_2", "x_8"], 
+                        ["Multiply", 3.818, "x_3"], 
+                        ["Multiply", 2.95, "x_3"], 
+                        ["Multiply", 6.63, "x_6", "x_9"], 
+                        ["Multiply", -7.77, "x_7", "x_8"], 
+                        ["Multiply", -9.98, "x_7", "x_8"], 
+                        ["Multiply", 22, "x_8", "x_9"], 
+                        28.98, 
+                        33.86, 
+                        46.36
+                    ]
+                    ],
+        },
+        {
+            "shortname":"f_7",
+            "func":[
+                    "Multiply", 
+                    ["Rational", 1, 4], 
+                    [
+                        "Add", 
+                        ["Multiply", 0.000191, ["Square", "x_11"]], 
+                        ["Multiply", -0.0122, "x_10", "x_4"], 
+                        ["Multiply", 0.009325, "x_10", "x_6"], 
+                        ["Multiply", -0.19, "x_2", "x_3"], 
+                        ["Multiply", -0.5, "x_4"], 
+                        4.72
+                    ]
+                    ],
+        },
+        {
+            "shortname":"f_8",
+            "func":[
+                    "Divide", 
+                    [
+                        "Add", 
+                        ["Multiply", -0.674, "x_1", "x_2"], 
+                        ["Multiply", -0.0198, "x_10", "x_4"], 
+                        ["Multiply", 0.028, "x_10", "x_6"], 
+                        ["Multiply", -1.95, "x_2", "x_8"], 
+                        10.58
+                    ], 
+                    9.9
+                    ],
+        },
+        {
+            "shortname":"f_9",
+            "func":[
+                    "Divide", 
+                    [
+                        "Add", 
+                        ["Multiply", -0.000786, ["Square", "x_11"]], 
+                        ["Multiply", 0.0432, "x_10", "x_9"], 
+                        ["Multiply", -0.0556, "x_11", "x_9"], 
+                        ["Multiply", -0.489, "x_3", "x_7"], 
+                        ["Multiply", -0.843, "x_5", "x_6"], 
+                        16.45
+                    ], 
+                    15.7
+                    ],
+        },
+    ],
+    "objectives":[  
+        {
+            "longname":"minimize structural volume",
+            "shortname":"f1",
+            "func":"f_1",
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f2",
+            "func":["Max", 0,"f_2"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f3",
+            "func":["Max", 0,"f_3"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f4",
+            "func":["Max", 0,"f_4"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f5",
+            "func":["Max", 0,"f_5"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f6",
+            "func":["Max", 0,"f_6"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+                {
+
+            "shortname":"f7",
+            "func":["Max", 0,"f_7"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+                {
+
+            "shortname":"f8",
+            "func":["Max", 0,"f_8"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f9",
+            "func":["Max", 0,"f_9"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "constraints":[],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=re61_json)
+    return p
+
+def cre21():
+    cre21_json = {
+    "constants":[],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x_1",
+            "lowerbound":0.00001,
+            "upperbound":100.0,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x_2",
+            "lowerbound":0.00001,
+            "upperbound":100.0,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":1,
+            "upperbound":3.0,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+    ],
+    "extra_func":[
+        {
+            "shortname":"f_1",
+            "func":[
+                    "Add", 
+                    [
+                        "Multiply", 
+                        "x_1", 
+                        ["Sqrt", ["Add", ["Square", "x_3"], 16]]
+                    ], 
+                    [
+                        "Multiply", 
+                        "x_2", 
+                        ["Sqrt", ["Add", ["Square", "x_3"], 1]]
+                    ]
+                    ],
+        },
+        {
+            "shortname":"f_2",
+            "func":[
+                "Divide", 
+                [
+                    "Sqrt", 
+                    [
+                    "Multiply", 
+                    20, 
+                    ["Add", ["Square", "x_3"], 16]
+                    ]
+                ], 
+                ["Multiply", "x_1", "x_3"]
+                ],
+        },
+    ],
+    "objectives":[  
+        {
+            "shortname":"f1",
+            "func":[
+                    "Add", 
+                    [
+                        "Multiply", 
+                        "x_1", 
+                        ["Sqrt", ["Add", ["Square", "x_3"], 16]]
+                    ], 
+                    [
+                        "Multiply", 
+                        "x_2", 
+                        ["Sqrt", ["Add", ["Square", "x_3"], 1]]
+                    ]
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f2",
+            "func":["Divide", 
+                        ["Multiply", 
+                            20,
+                            ["Sqrt", ["Add", ["Square", "x_3"], 16]]
+                        ],
+                        ["Multiply", "x_1", "x_3"]
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+    ],
+    "constraints":[
+        {
+            "shortname":"g1",
+            "func":["Max",["Negate",["Subtract", 0.1, "f_1",]],0],
+        },
+        {
+            "shortname":"g2",
+            "func":["Max",["Negate",["Subtract", 100000, "f_2",]],0],
+        },
+        {
+            "shortname":"g_3",
+            "func":["Max",[
+                "Subtract", 
+                [
+                    "Divide", 
+                    [
+                    "Sqrt", 
+                    [
+                        "Multiply", 
+                        80, 
+                        ["Add", ["Square", "x_3"], 1]
+                    ]
+                    ], 
+                    ["Multiply", "x_2", "x_3"]
+                ], 
+                100000
+                ],0],
+        },
+    ],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=cre21_json)
+    return p
+
+def cre22():
+    cre22_json = {
+    "constants":[
+        {"shortname":"P","value":6000},
+        {"shortname":"L","value":14},
+        {"shortname":"E","value":30e6},
+        {"shortname":"G","value":12e6},
+        {"shortname":"tauMax","value":13600},
+        {"shortname":"sigmaMax","value":30000},
+    ],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x_1",
+            "lowerbound":0.125,
+            "upperbound":5.0,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x_2",
+            "lowerbound":0.1,
+            "upperbound":10.0,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":0.1,
+            "upperbound":10.0,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_4",
+            "lowerbound":0.125,
+            "upperbound":5.0,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+    ],
+    "extra_func":[
+        {
+            "shortname":"M",
+            "func":["Multiply", "P", ["Add", "L", 
+                    ["Multiply", ["Rational", 1, 2], "x_2"]]
+                ],
+        },
+        {
+            "shortname":"tmpVar1",
+            "func":[
+                    "Add", 
+                    [
+                        "Multiply", 
+                        ["Square", ["Rational", 1, 2]], 
+                        ["Square", ["Add", "x_1", "x_3"]]
+                    ], 
+                    [
+                        "Multiply", 
+                        ["Rational", 1, 4], 
+                        ["Square", "x_2"]
+                    ]
+                    ],
+        },
+        {
+            "shortname":"R",
+            "func":["Sqrt", "tmpVar1"],
+        },
+        {
+            "shortname":"tmpVar2",
+            "func":[
+                    "Add", 
+                    [
+                        "Multiply", 
+                        ["Square", ["Rational", 1, 2]], 
+                        ["Square", ["Add", "x_1", "x_3"]]
+                    ], 
+                    [
+                        "Multiply", 
+                        ["Rational", 1, 12], 
+                        ["Square", "x_2"]
+                    ]
+                    ],
+        },
+        { 
+            "shortname":"J",
+            "func":["Multiply",2,["Sqrt",2],"x_1","x_2","tmpVar2"]
+        },
+        {
+            "shortname":"tauDashDash",
+            "func":["Divide", ["Multiply","M","R"],"J"  ],
+        },
+        {
+            "shortname":"tauDash",
+            "func":["Divide", "P", ["Multiply", "x_1", "x_2", ["Sqrt", 2]]],
+        },
+        {
+            "shortname":"tmpVar3",
+            "func":["Add", 
+                    ["Divide", ["Multiply", "tauDash", "x_2", "tauDashDash"], "R"], 
+                    ["Square", "tauDash"], 
+                    ["Square", "tauDashDash"]
+                    ],
+        },
+        {
+            "shortname":"tau",
+            "func":["Sqrt", "tmpVar3" ],
+        },
+        {
+            "shortname":"sigma",
+            "func":["Divide", 
+                    ["Multiply", 6, "L", "P"], 
+                    ["Multiply", "x_4", ["Square", "x_3"]]],
+        },
+        {
+            "shortname":"tmpVar4",
+            "func":[
+                        "Divide", 
+                        [
+                            "Multiply", 
+                            4.013, 
+                            "E", 
+                            [
+                            "Sqrt", 
+                            [
+                                "Multiply", 
+                                ["Rational", 1, 36], 
+                                ["Square", "x_3"], 
+                                ["Power", "x_4", 6]
+                            ]
+                            ]
+                        ], 
+                        ["Square", "L"]
+                        ],
+        },
+        {
+            "shortname":"tmpVar5",
+            "func":[
+                    "Divide", 
+                    [
+                        "Multiply", 
+                        ["Rational", 1, 2], 
+                        "x_3", 
+                        [
+                        "Sqrt", 
+                        [
+                            "Divide", 
+                            ["Multiply", ["Rational", 1, 4], "E"], 
+                            "G"
+                        ]
+                        ]
+                    ], 
+                    "L"
+                    ],
+        },
+        {
+            "shortname":"PC",
+            "func":["Multiply", 
+                    "tmpVar4",
+                    ["Subtract", 1, "tmpVar5"]],
+        },
+    ],
+    "objectives":[  
+        {
+            "shortname":"f1",
+            "func":["Add", ["Multiply", 1.10471, "x_2", ["Square", "x_1"]], 
+                    [
+                        "Multiply", 
+                        0.04811, 
+                        "x_3", 
+                        "x_4", 
+                        ["Add", "x_2", 14]
+                    ]
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f2",
+            "func":[
+                    "Divide", 
+                    [
+                        "Multiply", 
+                        4, 
+                        "P", 
+                        ["Power", "L", 3]
+                    ], 
+                    [
+                        "Multiply", 
+                        "E", 
+                        "x_4", 
+                        ["Power", "x_3", 3]
+                    ]
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+    ],
+    "constraints":[
+        {
+            "shortname":"g1",
+            "func":["Max",["Negate",["Subtract", "tauMax", "tau",]],0],
+        },
+        {
+            "shortname":"g2",
+            "func":["Max",["Negate",["Subtract", "sigmaMax", "sigma",]],0],
+        },
+        {
+            "shortname":"g3",
+            "func":["Max",["Negate",["Subtract", "x_4", "x_1",]],0],
+        },
+        {
+            "shortname":"g4",
+            "func":["Max",["Negate",["Subtract", "PC", "P",]],0],
+        },
+    ],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=cre22_json)
+    return p
+
+def cre23():
+    cre23_json = {
+    "constants":[],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x_1",
+            "lowerbound":55,
+            "upperbound":80,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x_2",
+            "lowerbound":75,
+            "upperbound":110,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":1000,
+            "upperbound":3000,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_4",
+            "lowerbound":11,
+            "upperbound":20,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+    ],
+    "extra_func":[
+    ],
+    "objectives":[  
+        {
+            "shortname":"f1",
+            "func":["Multiply", 
+                    1e-5, 
+                    ["Subtract", "x_4", 1], 
+                    ["Subtract", ["Square", "x_2"], 
+                    ["Square", "x_1"]]],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f2",
+            "func":[
+                    "Divide", 
+                    [
+                        "Multiply", 
+                        9.82, 
+                        1e6, 
+                        ["Subtract", ["Square", "x_2"], ["Square", "x_1"]]
+                    ], 
+                    [
+                        "Multiply", 
+                        "x_3", 
+                        "x_4", 
+                        [
+                        "Subtract", 
+                        ["Power", "x_2", 3], 
+                        ["Power", "x_1", 3]
+                        ]
+                    ]
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+    ],
+    "constraints":[
+        {
+            "shortname":"g1",
+            "func":["Max",["Negate",["Add", ["Negate", "x_1"], "x_2", -20] ],0],
+        },
+        {
+            "shortname":"g2",
+            "func":["Max",["Negate",
+                          [
+                            "Add", 
+                            [
+                                "Divide", 
+                                ["Negate", "x_3"], 
+                                [
+                                "Multiply", 
+                                3.14, 
+                                ["Subtract", ["Square", "x_2"], ["Square", "x_1"]]
+                                ]
+                            ], 
+                            0.4
+                            ]         
+                           ],0],
+        },
+        {
+            "shortname":"g3",
+            "func":["Max",["Negate",
+                            [
+                            "Add", 
+                            [
+                                "Divide", 
+                                [
+                                "Multiply", 
+                                -2.22, 
+                                1e-3, 
+                                "x_3", 
+                                [
+                                    "Subtract", 
+                                    ["Power", "x_2", 3], 
+                                    ["Power", "x_1", 3]
+                                ]
+                                ], 
+                                [
+                                "Square", 
+                                ["Subtract", ["Square", "x_2"], ["Square", "x_1"]]
+                                ]
+                            ], 
+                            1
+                            ]                          
+                                    
+                           ],0],
+        },
+        {
+            "shortname":"g4",
+            "func":["Max",["Negate",
+                           [
+  "Subtract", 
+  [
+    "Divide", 
+    [
+      "Multiply", 
+      2.66, 
+      1e-2, 
+      "x_3", 
+      "x_4", 
+      [
+        "Subtract", 
+        ["Power", "x_2", 3], 
+        ["Power", "x_1", 3]
+      ]
+    ], 
+    ["Subtract", ["Square", "x_2"], ["Square", "x_1"]]
+  ], 
+  900
+]
+                           ],0],
+        },
+    ],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=cre23_json)
+    return p
+
+def cre24():
+    cre24_json = {
+    "constants":[],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x_1",
+            "lowerbound":2.6,
+            "upperbound":3.6,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x_2",
+            "lowerbound":0.7,
+            "upperbound":0.8,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":17,
+            "upperbound":28,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_4",
+            "lowerbound":7.3,
+            "upperbound":8.3,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_5",
+            "lowerbound":7.3,
+            "upperbound":8.3,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_6",
+            "lowerbound":2.9,
+            "upperbound":3.9,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_7",
+            "lowerbound":5.0,
+            "upperbound":5.5,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+    ],
+    "extra_func":[
+        {
+            "shortname":"tmpVar1",
+            "func":[
+                    "Add", 
+                    [
+                        "Multiply", 
+                        ["Square", 745], 
+                        ["Square", "x_4"], 
+                        [
+                        "Square", 
+                        ["Divide", 1, ["Multiply", "x_2", "x_3"]]
+                        ]
+                    ], 
+                    ["Multiply", 1.69, 1e7]
+                    ],
+        },
+        {
+            "shortname":"tmpVar2",
+            "func":["Add", ["Multiply", ["Square", 745], 
+                        ["Square", "x_5"], 
+                        [
+                        "Square", 
+                        ["Divide", 1, ["Multiply", "x_2", "x_3"]]
+                        ]
+                    ], ["Multiply", 1.575, 1e8]
+                    ],
+        },
+        { 
+            "shortname":"f_1",
+            "func":
+            ["Add", 
+             ["Multiply", 0.7854, 
+                ["Add", ["Multiply","x_4",["Square", "x_6"]], 
+                        ["Multiply","x_5",["Square", "x_7"]]
+                ]
+             ],
+             ["Multiply",7.477, 
+                ["Add", ["Power", "x_6", 3], ["Power", "x_7", 3] ]
+             ],
+             ["Multiply", -1.508, "x_1", ["Add", ["Square", "x_6"], ["Square", "x_7"]]],    
+            ["Multiply", 0.7854, "x_1", ["Square", "x_2"],
+             ["Add", 
+                [
+                    "Multiply", 
+                    ["Rational", 10, 3], 
+                    ["Square", "x_3"]
+                ], 
+                ["Multiply", 14.933, "x_3"], 
+                -43.0934
+            ]
+            ]
+            ],
+        },
+        {
+            "shortname":"f_2",
+            "func":["Divide", ["Sqrt", "tmpVar1"], ["Multiply", 0.1, ["Power", "x_6", 3]]],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+    ],
+    "objectives":[  
+        {
+            "shortname":"f1",
+            "func":"f_1",
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f2",
+            "func":"f_2",
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+    ],
+    "constraints":[
+        {
+            "shortname":"g1",
+            "func":["Max",
+                    ["Subtract",
+                     ["Divide",1, ["Multiply", "x_1", "x_3", ["Square", "x_2"]]], 
+                     ["Rational", 1, 27]]
+                    ,0],
+        },
+        {
+            "shortname":"g2",
+            "func":["Max",[
+                        "Add", 
+                        ["Divide", -1, 397.5], 
+                        [
+                            "Divide", 
+                            1, 
+                            [
+                            "Multiply", 
+                            "x_1", 
+                            ["Square", "x_2"], 
+                            ["Square", "x_3"]
+                            ]
+                        ]
+                        ]
+,0],
+        },
+        {
+            "shortname":"g3",
+            "func":["Max",[
+                        "Add", 
+                        ["Divide", -1, 1.93], 
+                        [
+                            "Divide", 
+                            ["Power", "x_4", 3], 
+                            [
+                            "Multiply", 
+                            "x_2", 
+                            "x_3", 
+                            ["Power", "x_6", 4]
+                            ]
+                        ]
+                        ]
+                    ,0],
+        },
+        {
+            "shortname":"g4",
+            "func":["Max",[
+                    "Add", 
+                    ["Divide", -1, 1.93], 
+                    [
+                        "Divide", 
+                        ["Power", "x_5", 3], 
+                        [
+                        "Multiply", 
+                        "x_2", 
+                        "x_3", 
+                        ["Power", "x_7", 4]
+                        ]
+                    ]
+                    ]
+                ,0],
+        },
+
+        {
+            "shortname":"g5",
+            "func":["Max",
+                    ["Subtract", ["Multiply", "x_2", "x_3"], 40]
+                    ,0],
+        },
+        {
+            "shortname":"g6",
+            "func":["Max",
+                    ["Subtract", ["Divide", "x_1", "x_2"], 12]
+                    ,0],
+        },
+        {
+            "shortname":"g7",
+            "func":["Max",
+                    ["Add", ["Divide", ["Negate", "x_1"], "x_2"], 5]
+                    ,0],
+        },
+                {
+            "shortname":"g8",
+            "func":["Max",
+                    ["Add", ["Multiply", 1.5, "x_6"], ["Negate", "x_4"], 1.9]
+                    ,0],
+        },
+        {
+            "shortname":"g9",
+            "func":["Max",
+                    ["Add", ["Multiply", 1.1, "x_7"], ["Negate", "x_5"], 1.9]
+                    ,0],
+        },
+                {
+            "shortname":"g10",
+            "func":["Max",
+                    ["Subtract", 
+                     "f_2",
+                      1300]
+                    ,0],
+        },
+                {
+            "shortname":"g11",
+            "func":["Max",
+                    ["Subtract", 
+                     ["Divide", ["Sqrt", "tmpVar2"], 
+                      ["Multiply", 0.1, ["Power", "x_7", 3]]], 1100]
+                    ,0],
+        },
+    ],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=cre24_json)
+    return p
+
+def cre25():
+    cre25_json = {
+    "constants":[],
+    "variables":[
+        {
+            "shortname":"x_1",
+            "lowerbound":12,
+            "upperbound":60,
+            "type":"Integer",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_2",
+            "lowerbound":12,
+            "upperbound":60,
+            "type":"Integer",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":12,
+            "upperbound":60,
+            "type":"Integer",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_4",
+            "lowerbound":12,
+            "upperbound":60,
+            "type":"Integer",
+            "initialvalue":None
+        }
+    ],
+    "extra_func":[
+        {
+            "shortname":"f_1",
+            "func":["Abs",
+                ["Subtract", 
+                 6.931, 
+                 ["Divide", 
+                  ["Multiply", ["Floor","x_3"], ["Floor","x_4"]], 
+                  ["Multiply", ["Floor","x_1"], ["Floor","x_2"]] ]
+                ]],
+        },
+        {
+            "shortname":"g_1",
+            "func":["Add", ["Divide", "f_1", 6.931], -0.5],
+        },
+    ],
+    "objectives":[  
+        {
+            "shortname":"f1",
+            "func":"f_1",
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f2",
+            "func":["Max",["Floor","x_1"],
+                    ["Max",["Floor","x_2"],
+                     ["Max",["Floor","x_3"],["Floor","x_4"]]]],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+    ],
+    "constraints":[
+        {
+            "shortname":"g1",
+            "func":["Max","g_1",0],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=cre25_json)
+    return p
+
+def cre31():
+    cre31_json = {
+    "constants":[],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x_1",
+            "lowerbound":0.5,
+            "upperbound":1.5,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x_2",
+            "lowerbound":0.45,
+            "upperbound":1.35,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":0.5,
+            "upperbound":1.5,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_4",
+            "lowerbound":0.5,
+            "upperbound":1.5,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+                {
+            "shortname":"x_5",
+            "lowerbound":0.875,
+            "upperbound":2.625,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_6",
+            "lowerbound":0.4,
+            "upperbound":1.2,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+                {
+            "shortname":"x_7",
+            "lowerbound":0.4,
+            "upperbound":1.2,
+            "type":"RealNumber",
+            "initialvalue":None
+        }
+    ],
+    "extra_func":[
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_1",
+            "func":["Negate",[
+                "Add", 
+                ["Multiply", 0.3717, "x_2", "x_4"], 
+                ["Multiply", 0.0092928, "x_3"], 
+                -1.16, 
+                1
+                ]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_2",
+            "func":["Negate",[
+                "Add", 
+                ["Multiply", 0.06486, "x_1"], 
+                ["Multiply", 0.0159, "x_1", "x_2"], 
+                ["Multiply", 0.019, "x_2", "x_7"], 
+                ["Multiply", -0.0144, "x_3", "x_5"], 
+                ["Multiply", -0.0154464, "x_6"], 
+                -0.261, 
+                0.32
+                ]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_3",
+            "func":["Negate",[
+                "Add", 
+                ["Multiply", 0.018, ["Square", "x_2"]], 
+                ["Multiply", 0.045195, "x_1"], 
+                ["Multiply", 0.0135168, "x_1"], 
+                ["Multiply", -0.03099, "x_2", "x_6"], 
+                ["Multiply", 0.018, "x_2", "x_7"], 
+                ["Multiply", -0.007176, "x_3"], 
+                ["Multiply", -0.023232, "x_3"], 
+                ["Multiply", -0.00817, "x_5"], 
+                ["Multiply", 0.00364, "x_5", "x_6"], 
+                -0.214, 
+                0.32
+                ]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_4",
+            "func":["Negate",[
+                "Add", 
+                ["Multiply", -0.227, ["Square", "x_2"]], 
+                ["Multiply", 0.61, "x_2"], 
+                ["Multiply", 0.031296, "x_3"], 
+                ["Multiply", 0.031872, "x_7"], 
+                -0.74, 
+                0.32
+                ]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_5",
+            "func":["Negate",[
+  "Add", 
+  ["Multiply", 4.2, "x_1", "x_2"], 
+  ["Multiply", -3.818, "x_3"], 
+  ["Multiply", -1.27296, "x_6"], 
+  ["Multiply", 2.68065, "x_7"], 
+  -28.98, 
+  32
+]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_6",
+            "func":["Negate",[
+  "Add", 
+  ["Multiply", 5.057, "x_1", "x_2"], 
+  ["Multiply", 3.795, "x_2"], 
+  ["Multiply", -2.95, "x_3"], 
+  ["Multiply", 3.4431, "x_7"], 
+  -33.86, 
+  -1.45728, 
+  32
+]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_7",
+            "func":["Negate",[
+  "Add", 
+  ["Multiply", 4.4505, "x_1"], 
+  ["Multiply", 9.9, "x_2"], 
+  -46.36, 
+  32
+]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_8",
+            "func":["Negate",[
+                "Add", 
+                ["Multiply", 0.19, "x_2", "x_3"], 
+                ["Multiply", 0.5, "x_4"], 
+                -4.72, 
+                4
+                ]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_9",
+            "func":["Negate",[
+    "Add", 
+    ["Multiply", 0.674, "x_1", "x_2"], 
+    ["Multiply", 0.67275, "x_2"], 
+    -10.58, 
+    9.9
+    ]],
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_10",
+            "func":["Negate",[
+                "Add", 
+                ["Multiply", 0.489, "x_3", "x_7"], 
+                ["Multiply", 0.843, "x_5", "x_6"], 
+                -16.45, 
+                15.7
+                ]],
+        }
+    ],
+    "objectives":[  
+        {
+            "shortname":"f1",
+            "func":
+                [
+                    "Add", 
+                    ["Multiply", 4.9, "x_1"], 
+                    ["Multiply", 6.67, "x_2"], 
+                    ["Multiply", 6.98, "x_3"], 
+                    ["Multiply", 4.01, "x_4"], 
+                    ["Multiply", 1.78, "x_5"], 
+                    ["Multiply", 0.00001, "x_6"], 
+                    ["Multiply", 2.73, "x_7"], 
+                    1.98
+
+            ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f2",
+            "func":[
+                    "Add", 
+                    ["Multiply", -0.19, "x_2", "x_3"], 
+                    ["Multiply", -0.5, "x_4"], 
+                    4.72
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f3",
+            "func":[
+                    "Multiply", 
+                    0.5, 
+                    [
+                        "Add", 
+                        ["Multiply", -0.674, "x_1", "x_2"], 
+                            ["Multiply", -0.67275, "x_2"], 
+                        ["Multiply", -0.489, "x_3", "x_7"], 
+                        ["Multiply", -0.843, "x_5", "x_6"], 
+                        10.58, 
+                        16.45
+                    ]
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+    ],
+    "constraints":[
+        {"shortname":"g1","func":["Max","g_1",0],},
+        {"shortname":"g2","func":["Max","g_2",0],},
+        {"shortname":"g3","func":["Max","g_3",0],},
+        {"shortname":"g4","func":["Max","g_4",0],},
+        {"shortname":"g5","func":["Max","g_5",0],},
+        {"shortname":"g6","func":["Max","g_6",0],},
+        {"shortname":"g7","func":["Max","g_7",0],},
+        {"shortname":"g8","func":["Max","g_8",0],},
+        {"shortname":"g9","func":["Max","g_9",0],},
+        {"shortname":"g10","func":["Max","g_10",0],}
+    ],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=cre31_json)
+    return p
+
+def cre32():
+    cre32_json = {
+    "constants":[
+        {"shortname":"g","value":9.8065},
+        {"shortname":"round_trip_miles","value":5000.0},
+        {"shortname":"handling_rate","value":8000.0},
+        {"shortname":"fuel_price","value":100.0}
+    ],
+    "variables":[
+        {
+            "shortname":"x_1",
+            "lowerbound":150,
+            "upperbound":274.32,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_2",
+            "lowerbound":20,
+            "upperbound":32.31,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":13,
+            "upperbound":25.0,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_4",
+            "lowerbound":10.0,
+            "upperbound":11.71,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+                {
+            "shortname":"x_5",
+            "lowerbound":14.0,
+            "upperbound":18.0,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_6",
+            "lowerbound":0.63,
+            "upperbound":0.75,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+    ],
+    "extra_func":[
+        {
+            "shortname":"displacement",
+            "func":[
+                    "Multiply", 
+                    1.025, 
+                    "x_1", 
+                    "x_2", 
+                    "x_4", 
+                    "x_6"
+                    ],
+        },
+        {
+            "shortname":"V",
+            "func":[
+                    "Multiply", 
+                    0.5144, 
+                    "x_5"
+                    ],
+        },
+        {
+            "shortname":"Fn",
+            "func":[
+                    "Divide", 
+                    "V", 
+                    ["Sqrt", ["Multiply", "g", "x_1"]]
+                    ],
+        },
+        {
+            "shortname":"a",
+            "func":[
+                    "Add", 
+                    ["Multiply", 4977.06, ["Square", "x_6"]], 
+                    ["Multiply", -8105.61, "x_6"], 
+                    4456.51
+                    ],
+        },
+        {
+            "shortname":"b",
+            "func":[
+                    "Add", 
+                    ["Multiply", -10847.2, ["Square", "x_6"]], 
+                    ["Multiply", 12817, "x_6"], 
+                    -6960.32
+                    ],
+        },
+        {
+            "shortname":"power",
+            "func":[
+                    "Divide", 
+                    [
+                        "Multiply", 
+                        ["Power", "x_5", 3], 
+                        ["Power", "displacement", ["Rational", 2, 3]]
+                    ], 
+                    ["Add", ["Multiply", "b", "Fn"], "a"]
+                    ],
+        },
+        {
+            "shortname":"outfit_weight",
+            "func":[
+                    "Multiply", 
+                    ["Power", "x_1", 0.8], 
+                    ["Power", "x_2", 0.6], 
+                    ["Power", "x_3", 0.3], 
+                    ["Power", "x_6", 0.1]
+                    ],
+        },
+        {
+            "shortname":"steel_weight",
+            "func":[
+                    "Multiply", 
+                    0.034, 
+                    ["Power", "x_1", 1.7], 
+                    ["Power", "x_2", 0.7], 
+                    ["Power", "x_3", 0.4], 
+                    ["Sqrt", "x_6"]
+                    ],
+        },
+        {
+            "shortname":"machinery_weight",
+            "func":["Multiply", 0.17, ["Power", "power", 0.9]],
+        },
+        {
+            "shortname":"light_ship_weight",
+            "func":[
+                "Add", 
+                "steel_weight", 
+                "outfit_weight", 
+                "machinery_weight"
+                ],
+        },
+
+        {
+            "shortname":"ship_cost",
+            "func":[
+                "Multiply", 
+                1.3, 
+                [
+                    "Add", 
+                    ["Multiply", 2000, ["Power", "steel_weight", 0.85]], 
+                    ["Multiply", 2400, ["Power", "power", 0.8]], 
+                    ["Multiply", 3500, "outfit_weight"]
+                ]
+                ],
+        },
+        {
+            "shortname":"capital_costs",
+            "func":[
+                "Multiply", 
+                0.2, 
+                "ship_cost"
+                ],
+        },
+        {
+            "shortname":"DWT",
+            "func":["Subtract", "displacement", "light_ship_weight"],
+        },
+        {
+            "shortname":"running_costs",
+            "func":["Multiply", 40000, ["Power", "DWT", 0.3]],
+        },
+        {
+            "shortname":"sea_days",
+            "func":["Multiply", ["Divide", 5000.0, 24], "x_5",],
+        },
+        {
+            "shortname":"daily_consumption",
+            "func":["Add", ["Multiply", ["Rational", 3, 125], 0.19, "power"], 0.2 ],
+        },
+        {
+            "shortname":"fuel_cost",
+            "func":[
+                "Multiply", 
+                "daily_consumption", 
+                "sea_days", 
+                "fuel_price",
+                1.05
+                ],
+        },
+        {
+            "shortname":"port_cost",
+            "func":["Multiply", 6.3, ["Power", "DWT", 0.8]],
+        },
+        {
+            "shortname":"fuel_carried",
+            "func":["Multiply", "daily_consumption", ["Add","sea_days",5] ],
+        },
+        {
+            "shortname":"miscellaneous_DWT",
+            "func":["Multiply", 2, ["Power", "DWT", 0.5]],
+        },
+        {
+            "shortname":"cargo_DWT",
+            "func":["Subtract", "DWT", "fuel_carried", "miscellaneous_DWT"],
+        },
+        {
+            "shortname":"port_days",
+            "func":["Multiply", 2, ["Add", ["Divide", "cargo_DWT", "handling_rate"], 0.5]],
+        },
+        {
+            "shortname":"RTPA",
+            "func":["Divide", 350, ["Add", "sea_days", "port_days"]],
+        },
+        {
+            "shortname":"voyage_costs",
+            "func":["Multiply", "RTPA", ["Add", "fuel_cost", "port_cost"]],
+        },
+        {
+            "shortname":"annual_costs",
+            "func":["Add", "capital_costs", "running_costs","voyage_costs"],
+        },
+        {
+            "shortname":"annual_cargo",
+            "func":["Multiply", "cargo_DWT", "RTPA"],
+        },
+
+        {
+            "shortname":"g_1",
+            "func":["Negate",["Subtract", ["Divide", "x_1", "x_2"], 6] ],
+        },
+        {
+            "shortname":"g_2",
+            "func":["Negate", ["Subtract", 15, ["Divide", "x_1", "x_3"]]],
+        },
+        {
+            "shortname":"g_3",
+            "func":["Negate", ["Subtract", 19,["Divide", "x_1", "x_4"]]],
+        },
+        {
+            "shortname":"g_4",
+            "func":["Negate", ["Subtract", ["Multiply", 0.45, ["Power", "DWT", 0.31]], "x_4"] ],
+        },
+        {
+            "shortname":"g_5",
+            "func":["Negate",["Add", ["Multiply", 0.7, "x_3"], ["Negate", "x_4"], 0.7] ],
+        },
+        {
+            "shortname":"g_6",
+            "func":["Negate",["Subtract", 500000.0, "DWT"] ],
+        },
+        {
+            "shortname":"g_7",
+            "func":["Negate",["Subtract","DWT",3000.0] ],
+        },
+        {
+            "shortname":"g_8",
+            "func":["Negate",["Subtract",3000.0,"Fn"] ],
+        },
+        {
+            "shortname":"g_9",
+            "func":["Negate",[
+                "Add", 
+                [
+                    "Divide", 
+                    [
+                    "Multiply", 
+                    ["Add", ["Multiply", 0.085, "x_6"], -0.002], 
+                    ["Square", "x_2"]
+                    ], 
+                    ["Multiply", "x_4", "x_6"]
+                ], 
+                ["Multiply", -0.07, "x_2"], 
+                ["Multiply", -0.52, "x_3"], 
+                ["Multiply", 0.53, "x_4"], 
+                -1
+                ]],
+        },
+
+    ],
+    "objectives":[  
+        {
+            "shortname":"f1",
+            "func":["Divide", "annual_costs", "annual_cargo"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f2",
+            "func":["Add", "steel_weight", "outfit_weight", "machinery_weight"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "shortname":"f3",
+            "func":["Negate",[ "Multiply", "cargo_DWT", "RTPA"]],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+    ],
+    "constraints":[
+        {"shortname":"g1","func":["Max","g_1",0],},
+        {"shortname":"g2","func":["Max","g_2",0],},
+        {"shortname":"g3","func":["Max","g_3",0],},
+        {"shortname":"g4","func":["Max","g_4",0],},
+        {"shortname":"g5","func":["Max","g_5",0],},
+        {"shortname":"g6","func":["Max","g_6",0],},
+        {"shortname":"g7","func":["Max","g_7",0],},
+        {"shortname":"g8","func":["Max","g_8",0],},
+        {"shortname":"g9","func":["Max","g_9",0],},
+    ],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=cre32_json)
+    return p
+
+def cre51():
+    cre51_json = {
+    "constants":[],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x_1",
+            "lowerbound":0.01,
+            "upperbound":0.45,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x_2",
+            "lowerbound":0.01,
+            "upperbound":0.1,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":0.01,
+            "upperbound":0.1,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+    ],
+    "extra_func":[
+        {
+            "shortname":"g_1",
+            "func":["Negate",[
+                    "Add", 
+                    ["Divide", -0.00139, ["Multiply", "x_1", "x_2"]], 
+                    ["Multiply", -4.94, "x_3"], 
+                    0.08, 
+                    1
+                    ]],
+        },
+        {
+            "shortname":"g_2",
+            "func":["Negate",[
+                "Add", 
+                ["Divide", -0.000306, ["Multiply", "x_1", "x_2"]], 
+                ["Multiply", -1.082, "x_3"], 
+                0.0986, 
+                1
+                ]],
+        },
+        {
+            "shortname":"g_3",
+            "func":["Negate",[
+                    "Add", 
+                    ["Divide", -12.307, ["Multiply", "x_1", "x_2"]], 
+                    ["Multiply", -49408.24, "x_3"], 
+                    -4051.02, 
+                    50000
+                    ]],
+        },
+        {
+            "shortname":"g_4",
+            "func":["Negate",[
+                    "Add", 
+                    ["Divide", -2.098, ["Multiply", "x_1", "x_2"]], 
+                    ["Multiply", -8046.33, "x_3"], 
+                    696.71, 
+                    16000
+                    ]],
+        },
+        {
+            "shortname":"g_5",
+            "func":["Negate",[
+                    "Add", 
+                    ["Divide", -2.138, ["Multiply", "x_1", "x_2"]], 
+                    ["Multiply", -7883.39, "x_3"], 
+                    705.04, 
+                    10000
+                    ]],
+        },
+        {
+            "shortname":"g_6",
+            "func":["Negate",[
+                    "Add", 
+                    ["Multiply", -0.417, "x_1", "x_2"], 
+                    ["Multiply", -1721.26, "x_3"], 
+                    136.54, 
+                    2000
+                    ]],
+        },
+                {
+            "shortname":"g_7",
+            "func":["Negate", [
+                    "Add", 
+                    ["Divide", -0.164, ["Multiply", "x_1", "x_2"]], 
+                    ["Multiply", -631.13, "x_3"], 
+                    54.48, 
+                    550
+                    ] ],
+        },
+    ],
+    "objectives":[  
+        {
+            "longname":"minimize structural volume",
+            "shortname":"f1",
+            "func":["Add", ["Multiply", 106780.37, ["Add", "x_2", "x_3"]], 61704.67],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f2",
+            "func":["Multiply", 3000,"x_1"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f3",
+            "func":["Multiply", 699747300, "x_2", ["Power", ["Multiply", 2289, 0.06], -0.65]],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f4",
+            "func":[
+                    "Multiply", 
+                    572250, 
+                    [
+                        "Exp", 
+                        [
+                        "Add", 
+                        ["Multiply", -39.75, "x_2"], 
+                        ["Multiply", 9.9, "x_3"], 
+                        2.74
+                        ]
+                    ]
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+
+            "shortname":"f5",
+            "func":[
+                    "Multiply", 
+                    25, 
+                    [
+                        "Add", 
+                        ["Divide", 1.39, ["Multiply", "x_1", "x_2"]], 
+                        ["Multiply", 4940, "x_3"], 
+                        -80
+                    ]
+                    ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+    ],
+    "constraints":[
+        {"shortname":"g1","func":["Max","g_1",0],},
+        {"shortname":"g2","func":["Max","g_2",0],},
+        {"shortname":"g3","func":["Max","g_3",0],},
+        {"shortname":"g4","func":["Max","g_4",0],},
+        {"shortname":"g5","func":["Max","g_5",0],},
+        {"shortname":"g6","func":["Max","g_6",0],},
+        {"shortname":"g7","func":["Max","g_7",0],}
+    ],
+    "__problemName":"RE"
+    }
+    p = MOProblem(json=cre51_json)
+    return p
+

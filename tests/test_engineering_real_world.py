@@ -58,13 +58,13 @@ def test_evaluate_re22():
     p: MOProblem = re22()
 
     # Variable values
-    xs = np.array([[10., 10., 20.], [12., 10., 20.], [11.5, 15, 35]])
+    xs = np.array([[6.37192567e+00, 1.44064899e+01, 4.57499269e-03]])
 
     objective_vectors = p.evaluate(xs).objectives
 
-    assert objective_vectors.shape[0] == 3
+    assert objective_vectors.shape[0] == 1
 
-    expected_result = np.array([[421.938, 2], [472.8, 2], [663.39, 164.0054642]])
+    expected_result = np.array([[185.84754575, 201.41659198]])
 
     npt.assert_allclose(objective_vectors, expected_result)
 
@@ -100,13 +100,13 @@ def test_evaluate_re23():
     p: MOProblem = re23()
 
     # Variable values
-    xs = np.array([[50, 50, 10, 10], [11, 63, 78, 187]])
+    xs = np.array([[42.28517847, 72.31212485, 10.02173122, 79.53649171]])
 
     objective_vectors = p.evaluate(xs).objectives
 
-    assert objective_vectors.shape[0] == 2
+    assert objective_vectors.shape[0] == 1
 
-    expected_result = np.array([[2996.845703, 5.9616],[49848.35467, 4266017.057]])
+    expected_result = np.array([[   5211.1889184,  1266687.99823145]])
 
     npt.assert_allclose(objective_vectors, expected_result)
 
@@ -143,13 +143,13 @@ def test_evaluate_re24():
     p: MOProblem = re24()
 
     # Variable values
-    xs = np.array([[2, 20], [3.3, 41.7]])
+    xs = np.array([[ 1.95957702, 36.15606243]])
 
     objective_vectors = p.evaluate(xs).objectives
 
-    assert objective_vectors.shape[0] == 2
+    assert objective_vectors.shape[0] == 1
 
-    expected_result = np.array([[2402, 3.63459881], [5007.3, 3.8568386109]])
+    expected_result = np.array([[4340.68706806,    0.        ]])
 
     npt.assert_allclose(objective_vectors, expected_result)
 
@@ -185,13 +185,13 @@ def test_evaluate_re25():
     p: MOProblem = re25()
 
     # Variable values
-    xs = np.array([[35.2, 15.5, 0.2], [1.5, 22.2, 0.4]])
+    xs = np.array([[29.77451832,  2.32877878,  0.09004689]])
 
     objective_vectors = p.evaluate(xs).objectives
 
-    assert objective_vectors.shape[0] == 2
+    assert objective_vectors.shape[0] == 1
 
-    expected_result = np.array([[60.6336716, 34638.44539181], [34.0130175755, 494.270212155]])
+    expected_result = np.array([[1.55630109e+00, 7.85132763e+06]])
 
     npt.assert_allclose(objective_vectors, expected_result)
 
@@ -227,14 +227,13 @@ def test_evaluate_re31():
     p: MOProblem = re31()
 
     # Variable values
-    xs = np.array([[1.0, 2.0, 3.0], [62.3, 14.7, 1.2]])
+    xs = np.array([[41.7022063,  72.03245214,  1.00022875]])
 
     objective_vectors = p.evaluate(xs).objectives
 
-    assert objective_vectors.shape[0] == 2
+    assert objective_vectors.shape[0] == 1
 
-    expected_result = np.array([[11.32455532, 33.3333333, 199924.503], 
-                                [283.1345722, 1.117207759, 199991.79866]])
+    expected_result = np.array([[273.82583798,   1.97697845, 273.72583798]])
 
     npt.assert_allclose(objective_vectors, expected_result)
 
@@ -270,14 +269,13 @@ def test_evaluate_re32():
     p: MOProblem = re32()
 
     # Variable values
-    xs = np.array([[1.0, 2.0, 3.0, 4.0],[2.5, 9, 3, 5]])
+    xs = np.array([[2.15798227, 7.23121249, 0.10113231, 1.59887129]])
 
     objective_vectors = p.evaluate(xs).objectives
 
-    assert objective_vectors.shape[0] == 2
+    assert objective_vectors.shape[0] == 1
 
-    expected_result = np.array([[11.44654, 0.0203259259, 18004862.58583042], 
-                                [78.7378875, 0.01626074, 35163507.96891048]])
+    expected_result = np.array([[3.73662096e+01, 1.32736634e+03, 3.07903225e+07]])
 
     npt.assert_allclose(objective_vectors, expected_result)
 
@@ -313,13 +311,13 @@ def test_evaluate_re33():
     p: MOProblem = re33()
 
     # Variable values
-    xs = np.array([60, 110, 2557, 12])
+    xs = np.array([[  65.42555012,  100.21135727, 1000.22874963,   13.72099315]])
 
     objective_vectors = p.evaluate(xs).objectives
 
     assert objective_vectors.shape[0] == 1
 
-    expected_result = np.array([[4.5815, 2.4397401, 106196.71729885972]])
+    expected_result = np.array([[3.59150353, 5.67635863, 0.        ]])
 
     npt.assert_allclose(objective_vectors, expected_result)
 
@@ -342,3 +340,860 @@ def test_number_of_variables_error_re33_1d():
 def test_number_of_variables_error_re33_2d():
     with pytest.raises(RuntimeError):
         p: MOProblem = re33(var_iv=np.array([[],[]]))
+
+real_example21 = {
+    "constants":[
+        {
+            "longname":"Force",
+            "shortname":"F",
+            "value":10
+        },
+        {
+            "longname":"Force",
+            "shortname":"E",
+            "value":2e5
+        },
+        {
+            "shortname":"L",
+            "value":200,
+            "__description":"Length, unit: cm"
+        },
+        {
+            "shortname":"sigma",
+            "value":10,
+            "__description":"Length, unit: kN/cm^2"
+        },
+        {
+            "shortname":"a",
+            "value":1.0,
+            "__description":"use for Variable bounds "
+        }
+    ],
+    "variables":[
+        {
+            "shortname":"x1",
+            "lowerbound":"a",
+            "upperbound":["Multiply",3,"a"],
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x2",
+            "lowerbound":["Multiply",["Sqrt",2],"a"],
+            "upperbound":["Multiply",3,"a"],
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x3",
+            "lowerbound":["Multiply",["Sqrt",2],"a"],
+            "upperbound":["Multiply",3,"a"],
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x4",
+            "lowerbound":"a",
+            "upperbound":["Multiply",3,"a"],
+            "type":"RealNumber",
+            "initialvalue":None
+        }
+    ],
+    "extra_func":[
+
+    ],
+    "objectives":[  
+        {
+            "longname":"minimize structural volume",
+            "shortname":"f1",
+            "func":
+                [
+                  "Multiply",
+                  "L",
+                  [
+                    "Add",
+                    ["Multiply", ["Sqrt", 2], "x2"],
+                    ["Multiply", 2, "x1"],
+                    ["Sqrt", "x3"],
+                    "x4"
+                  ]
+                ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "longname":"minimize the joint displacement",
+            "shortname":"f2",
+            "func":[
+                "Divide",
+                [
+                  "Multiply",
+                  "F",
+                  "L",
+                  [
+                    "Add",
+                    ["Divide", 2, "x1"],
+                    ["Divide", 2, "x4"],
+                    ["Divide", ["Multiply", 2, ["Sqrt", 2]], "x2"],
+                    ["Divide", ["Multiply", -2, ["Sqrt", 2]], "x2"]
+                  ]
+                ],
+                "E"
+              ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "constraints":[],
+    "__problemName":"Four bar truss design problem",
+    "__problemDescription":"This problem is from DESDEO example Engineering real-world test problems on https://desdeo-problem.readthedocs.io/en/latest/problems/engineering_real_world.html#re-21-four-bar-truss-design-problem"
+}
+
+real_example22 = {
+    "constants":[],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x_1",
+            "lowerbound":0.2,
+            "upperbound":15,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x_2",
+            "lowerbound":0,
+            "upperbound":20,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "shortname":"x_3",
+            "lowerbound":0,
+            "upperbound":40,
+            "type":"RealNumber",
+            "initialvalue":None
+        }
+    ],
+    "extra_func":[
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_1",
+            "func":
+            [
+                "Add", 
+                [
+                  "Divide", 
+                  ["Multiply", -7.735, ["Square", "x_1"]], 
+                  ["Square", "x_2"]
+                ], 
+                ["Multiply", "x_1", "x_3"], 
+                -180
+            ]
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_2",
+            "func":
+            [
+                "Add", 
+                ["Divide", ["Negate", "x_3"], "x_2"], 
+                4
+            ]
+        }
+    ],
+    "objectives":[  
+        {
+            "longname":"minimize structural volume",
+            "shortname":"f_1",
+            "func":
+            [
+                "Add", 
+                ["Multiply", 29.4, "x_1"], 
+                ["Multiply", 0.6, "x_2", "x_3"]
+            ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "longname":"minimize the joint displacement",
+            "shortname":"f_2",
+            "func":["Sum", ["Max", "g_i", 0], ["Triple", ["Hold", "i"], 1, 2]],
+            "max": False,   
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "constraints":[
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_1",
+            "func":
+            [
+                "Add", 
+                [
+                  "Divide", 
+                  ["Multiply", -7.735, ["Square", "x_1"]], 
+                  "x_2"
+                ], 
+                ["Multiply", "x_1", "x_3"], 
+                -180
+            ]
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_2",
+            "func":
+            [
+                "Add", 
+                ["Divide", ["Negate", "x_3"], "x_2"], 
+                4
+            ]
+        }
+
+    ],
+    "__problemName":"Pressure vessel design problem",
+    "__problemDescription":"This problem is from DESDEO example Engineering real-world test problems on https://desdeo-problem.readthedocs.io/en/latest/problems/engineering_real_world.html#re-21-four-bar-truss-design-problem"
+}
+
+real_example23 = {
+  "constants":[],
+  "variables":[
+      {
+          "longname":"Decision variable 1",
+          "shortname":"x_1",
+          "lowerbound":1,
+          "upperbound":100,
+          "type":"RealNumber",
+          "initialvalue":None
+      },
+      {
+          "longname":"Decision variable 2",
+          "shortname":"x_2",
+          "lowerbound":1,
+          "upperbound":100,
+          "type":"RealNumber",
+          "initialvalue":None
+      },
+      {
+          "shortname":"x_3",
+          "lowerbound":10,
+          "upperbound":200,
+          "type":"RealNumber",
+          "initialvalue":None
+      },
+      {
+          "shortname":"x_4",
+          "lowerbound":10,
+          "upperbound":240,
+          "type":"RealNumber",
+          "initialvalue":None
+      }
+  ],
+  "extra_func":[
+      {
+          "longname":"minimize structural volume",
+          "shortname":"g_1",
+          "func":
+          ["Add", ["Multiply", -0.0193, "x_3"], "x_1"]
+      },
+      {
+          "longname":"minimize structural volume",
+          "shortname":"g_2",
+          "func":
+          ["Add", ["Multiply", -0.00954, "x_3"], "x_2"]
+      },
+      {
+          "longname":"minimize structural volume",
+          "shortname":"g_3",
+          "func":
+          [
+              "Add", 
+              ["Multiply", 2.51327, ["Power", "x_3", 3]], 
+              ["Multiply", 3.14159, "x_4", ["Square", "x_3"]], 
+              -1296000
+            ]
+      }
+  ],
+  "objectives":[  
+      {
+          "longname":"minimize structural volume",
+          "shortname":"f_1",
+          "func":
+          [
+              "Add", 
+              ["Multiply", 0.6224, "x_1", "x_3", "x_4"], 
+              ["Multiply", 1.7781, "x_2", ["Square", "x_3"]], 
+              ["Multiply", 19.84, "x_3", ["Square", "x_1"]], 
+              ["Multiply", 3.1661, "x_4", ["Square", "x_1"]]
+            ],
+          "max": False,
+          "lowerbound":None,
+          "upperbound":None
+      },
+      {
+          "longname":"minimize the joint displacement",
+          "shortname":"f_2",
+          "func":["Sum", ["Max", "g_i", 0], ["Triple", ["Hold", "i"], 1, 3]],
+          "max": False,   
+          "lowerbound":None,
+          "upperbound":None
+      }
+  ],
+  "constraints":[
+      {
+          "longname":"minimize structural volume",
+          "shortname":"g_1",
+          "func":
+          ["Add", ["Multiply", -0.0193, "x_3"], "x_1"]
+      },
+      {
+          "longname":"minimize structural volume",
+          "shortname":"g_2",
+          "func":
+          ["Add", ["Multiply", -0.00954, "x_3"], "x_2"]
+      },
+      {
+          "longname":"minimize structural volume",
+          "shortname":"g_3",
+          "func":
+          [
+              "Add", 
+              ["Multiply", 2.51327, ["Power", "x_3", 3]], 
+              ["Multiply", 3.14159, "x_4", ["Square", "x_3"]], 
+              -1296000
+          ]
+      }
+
+  ],
+  "__problemName":"Pressure vessel design problem",
+  "__problemDescription":"This problem is from DESDEO example Engineering real-world test problems on https://desdeo-problem.readthedocs.io/en/latest/problems/engineering_real_world.html#re-21-four-bar-truss-design-problem"
+}
+
+real_example24 = {
+    "constants":[
+        {
+            "longname":"sigma_b_max",
+            "shortname":"sigma_b_max",
+            "value":700
+        },
+        {
+            "longname":"omega_max",
+            "shortname":"omega_max",
+            "value":1.5
+        },
+        {
+            "shortname":"tau_max",
+            "value":450
+        },
+        {
+            "shortname":"omega",
+            "value":56.2e4
+        },
+        {
+            "shortname":"E",
+            "value":7e5
+        }
+    ],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x_1",
+            "lowerbound":0.5,
+            "upperbound":4,
+            "type":"RealNumber",
+            "initialvalue":None
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"x_2",
+            "lowerbound":4,
+            "upperbound":40,
+            "type":"RealNumber",
+            "initialvalue":None
+        }
+    ],
+    "extra_func":[
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_1",
+            "func":
+            [
+                "Add", 
+                [
+                  "Divide", 
+                  ["Rational", -45, 7], 
+                  ["Multiply", "x_1", "x_2"]
+                ], 
+                1
+              ]
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_2",
+            "func":
+            [
+                "Add", 
+                ["Divide", ["Rational", -1, 4], "x_2"], 
+                1
+              ]
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_3",
+            "func":
+            [
+                "Add", 
+                [
+                  "Divide", 
+                  ["Rational", -281, 350], 
+                  ["Multiply", 1.5, "x_1", ["Square", "x_2"]]
+                ], 
+                1
+              ]
+        },
+        {
+            "shortname":"g_4",
+            "func":
+            [
+                "Add", 
+                [
+                  "Divide", 
+                  ["Rational", -9, 14], 
+                  ["Multiply", "x_2", ["Power", "x_1", 3]]
+                ], 
+                1
+              ]
+        }
+    ],
+    "objectives":[  
+        {
+            "longname":"minimize structural volume",
+            "shortname":"f_1",
+            "func":["Add", ["Multiply", 120, "x_2"], "x_1"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "longname":"minimize the joint displacement",
+            "shortname":"f_2",
+            "func":["Sum", ["Max", "g_i", 0], ["Triple", ["Hold", "i"], 1, 4]],
+            "max": False,   
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "constraints":[
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_1",
+            "func":
+            [
+                "Add", 
+                [
+                  "Divide", 
+                  ["Rational", -45, 7], 
+                  ["Multiply", "x_1", "x_2"]
+                ], 
+                1
+              ]
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_2",
+            "func":
+            [
+                "Add", 
+                ["Divide", ["Rational", -1, 4], "x_2"], 
+                1
+              ]
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"g_3",
+            "func":
+            [
+                "Add", 
+                [
+                  "Divide", 
+                  ["Rational", -281, 350], 
+                  ["Multiply", 1.5, "x_1", ["Square", "x_2"]]
+                ], 
+                1
+              ]
+        },
+        {
+            "shortname":"g_4",
+            "func":
+            [
+                "Add", 
+                [
+                  "Divide", 
+                  ["Rational", -9, 14], 
+                  ["Multiply", "x_2", ["Power", "x_1", 3]]
+                ], 
+                1
+              ]
+        }
+
+    ],
+    "__problemName":"Pressure vessel design problem",
+    "__problemDescription":"This problem is from DESDEO example Engineering real-world test problems on https://desdeo-problem.readthedocs.io/en/latest/problems/engineering_real_world.html#re-21-four-bar-truss-design-problem"
+}
+
+analytical_problem = {
+    "constants":[],
+    "variables":[  
+        {
+            "longname":"Constants 1",
+            "shortname":"x1",
+            "lowerbound":-0.5,
+            "upperbound":0.5,
+            "type":"RealNumber",
+            "initialvalue":0
+        },
+        {
+            "longname":"Constants 2",
+            "shortname":"x2",
+            "lowerbound":-0.5,
+            "upperbound":0.5,
+            "type":"RealNumber",
+            "initialvalue":0
+        }
+    ],
+    "extra_func":[],
+    "objectives":[
+        { 
+            "longname":"objectives 1",
+            "shortname":"f_1",
+            "func":["Subtract",["Square","x1"],"x2"],
+            "max": False,
+            "lowerbound":0,
+            "upperbound":10
+        },
+        {
+            "longname":"objectives 2",
+            "shortname":"f_2",
+            "func":["Subtract",["Square","x2"],["Multiply",3,"x1"]],
+            "max": False,
+            "lowerbound":0,
+            "upperbound":10
+        }
+    ],
+    "constraints":[ 
+        {
+            "longname":"constraints 2",
+            "shortname":"g1",
+            "func":["Subtract",10,["Add","x1","x2"]]
+        }
+    ],
+    "__ProblemName":"name",
+    "__ProblemDescription":"This problem is from DESDEO example Analytical problem on https://desdeo-problem.readthedocs.io/en/latest/notebooks/analytical_problem.html"
+}
+
+mop_example = {
+    "constants":[],
+    "variables":[  
+        {
+            "longname":"variables 1",
+            "shortname":"x1",
+            "lowerbound":-2,
+            "upperbound":5,
+            "type":"RealNumber",
+            "initialvalue":1
+        },
+        {
+            "longname":"variables 2",
+            "shortname":"x2",
+            "lowerbound":-1,
+            "upperbound":10,
+            "type":"RealNumber",
+            "initialvalue":1
+        },
+        {
+            "longname":"variables 2",
+            "shortname":"x3",
+            "lowerbound":0,
+            "upperbound":3,
+            "type":"RealNumber",
+            "initialvalue":1
+        }
+    ],
+    "extra_func":[],
+    "objectives":[
+        { 
+            "longname":"objectives 1",
+            "shortname":"f_1",
+            "func":["Add","x1","x2","x3"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "longname":"objectives 2",
+            "shortname":"f_2",
+            "func":["Multiply","x1","x2","x3"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "longname":"objectives 3",
+            "shortname":"f_3",
+            "func":["Add",["Multiply","x1","x2"],"x3"],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "constraints":[ 
+        {
+            "longname":"constraints 1",
+            "shortname":"g1",
+            "func":["Subtract", 10, ["Add","x1","x2","x3"]]
+        }
+    ],
+    "__ProblemName":"name",
+    "__ProblemDescription":"problem on https://desdeo-problem.readthedocs.io/en/latest/notebooks/Defining_a_problem.html#Multiobjective-Optimization-Problem"
+}
+
+mop5 = {
+    "constants":[],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x",
+            "lowerbound":-30,
+            "upperbound":30,
+            "type":"RealNumber",
+            "initialvalue":0
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"y",
+            "lowerbound":-30,
+            "upperbound":30,
+            "type":"RealNumber",
+            "initialvalue":0
+        }
+    ],
+    "extra_func":[
+    ],
+    "objectives":[  
+        {
+            "longname":"minimize structural volume",
+            "shortname":"f1",
+            "func":
+            [
+                "Add",
+                ["Multiply", 0.5, ["Add", ["Square", "x"], ["Square", "y"]]],
+                ["Sin", ["Add", ["Square", "x"], ["Square", "y"]]]
+              ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "longname":"minimize the joint displacement",
+            "shortname":"f2",
+            "func":
+            [
+                "Add",
+                ["Divide", ["Square",["Add",["Multiply",3,"x"], ["Multiply",-2,"y"],4]],8],
+                ["Divide", ["Square",["Add","x", ["Negate","y"],1]],27],
+                15
+            ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"f3",
+            "func":
+            [
+                "Add",
+                ["Divide", 1, ["Add", ["Square", "x"], ["Square", "y"], 1]],
+                [
+                  "Multiply",
+                  -1.1,
+                  [
+                    "Exp",
+                    [
+                      "Subtract",
+                      ["Negate", ["Square", "y"]],
+                      ["Square", "x"]
+                    ]
+                  ]
+                ]
+              ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "constraints":[],
+    "__problemName":"Four bar truss design problem",
+    "__problemDescription":"test problems on https://desdeo-emo.readthedocs.io/en/latest/notebooks/Example.html"
+}
+
+
+mop7 = {
+    "constants":[],
+    "variables":[
+        {
+            "longname":"Decision variable 1",
+            "shortname":"x",
+            "lowerbound":-400,
+            "upperbound":400,
+            "type":"RealNumber",
+            "initialvalue":0
+        },
+        {
+            "longname":"Decision variable 2",
+            "shortname":"y",
+            "lowerbound":-400,
+            "upperbound":400,
+            "type":"RealNumber",
+            "initialvalue":0
+        }
+    ],
+    "extra_func":[
+    ],
+    "objectives":[  
+        {
+            "longname":"minimize structural volume",
+            "shortname":"f1",
+            "func":
+            [
+                "Add",
+                ["Divide", ["Square",["Subtract","x",2]], 2],
+                ["Divide", ["Square",["Add","y",1]],     13],
+                3
+              ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "longname":"minimize the joint displacement",
+            "shortname":"f2",
+            "func":
+            [
+                "Add",
+                ["Divide", ["Square",["Add","x","y",-3]],             36],
+                ["Divide", ["Square",["Add",["Subtract","y","x"],2]],  8],
+                -17
+              ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        },
+        {
+            "longname":"minimize structural volume",
+            "shortname":"f3",
+            "func":
+            [
+                "Add",
+                ["Divide", ["Square",["Add","x", ["Multiply",2,"y"],-1]],175],
+                ["Divide", ["Square",["Subtract",["Multiply",2,"y"],"x"]],17],
+                -13
+              ],
+            "max": False,
+            "lowerbound":None,
+            "upperbound":None
+        }
+    ],
+    "constraints":[],
+    "__problemName":"Four bar truss design problem",
+    "__problemDescription":"test problems on https://desdeo-emo.readthedocs.io/en/latest/notebooks/Example.html"
+}
+
+#START TESTING
+#python -m pytest tests/test_MathJsonMOProblem.py
+def test_real_example21():
+    p = MOProblem(json=real_example21)
+    # Variable values
+    xs = np.array([2, 2, 2, 2])
+    objective_vectors = p.evaluate(xs).objectives
+    assert objective_vectors.shape[0] == 1
+    expected_result = np.array([[2048.528137, 0.02]])
+    npt.assert_allclose(objective_vectors, expected_result)
+
+def test_real_example22():
+    p = MOProblem(json=real_example22)
+    # Variable values
+    xs = np.array([[10., 10., 20.], [12., 10., 20.], [11.5, 15, 35]])
+    objective_vectors = p.evaluate(xs).objectives
+    assert objective_vectors.shape[0] == 3
+    expected_result = np.array([[414, 14.265     ],
+                                [472.8,50.8616    ],
+                                [653.1,219.62020556]])
+    npt.assert_allclose(objective_vectors, expected_result)
+
+def test_real_example23():
+    p = MOProblem(json=real_example23)
+    # Variable values
+    xs = np.array([[50, 50, 10, 10], [11, 63, 78, 187]])
+    objective_vectors = p.evaluate(xs).objectives
+    assert objective_vectors.shape[0] == 2
+    expected_result = np.array([[5.87155000e+05,9.97116000e+01],
+ [1.04028236e+06,3.47096113e+06]])
+    npt.assert_allclose(objective_vectors, expected_result)
+
+def test_real_example24():
+    p = MOProblem(json=real_example24)
+    # Variable values
+    xs = np.array([[2, 20], [3.3, 41.7]])
+    objective_vectors = p.evaluate(xs).objectives
+    assert objective_vectors.shape[0] == 2
+    expected_result = np.array([[2.40200000e+03,3.82209881e+00],
+                                [5.00730000e+03,3.94676667e+00]])
+    npt.assert_allclose(objective_vectors, expected_result)
+
+def test_analytical_problem():
+    p = MOProblem(json=analytical_problem)
+    # Variable values
+    xs = np.array([2, 2, 2, 2])
+    objective_vectors = p.evaluate(xs).objectives
+    assert objective_vectors.shape[0] == 1
+    expected_result = np.array([[ 2., -2.]])
+    npt.assert_allclose(objective_vectors, expected_result)
+
+
+def test_mop_example():
+    p = MOProblem(json=mop_example)
+    # Variable values
+    xs = np.array([[10., 10., 20.], [12., 10., 20.], [11.5, 15, 35]])
+    objective_vectors = p.evaluate(xs).objectives
+    assert objective_vectors.shape[0] == 3
+    expected_result = np.array([[  40. ,  2000. ,   120. ],
+                                [  42. ,  2400. ,   140. ],
+                                [  61.5, 6037.5 ,  207.5]])
+    npt.assert_allclose(objective_vectors, expected_result)
+
+def test_mop5():
+    p = MOProblem(json=mop5)
+    # Variable values
+    xs = np.array([[2, 20], [3.3, 41.7]])
+    objective_vectors = p.evaluate(xs).objectives
+    assert objective_vectors.shape[0] == 2
+    expected_result = np.array([[2.02953744e+02, 1.38203704e+02, 2.46913580e-03],
+                            [8.74976998e+02, 6.70587176e+02, 5.71173991e-04]])
+    npt.assert_allclose(objective_vectors, expected_result)
+
+def test_mop7():
+    p = MOProblem(json=mop7)
+    # Variable values
+    xs = np.array([[2, 20], [3.3, 41.7]])
+    objective_vectors = p.evaluate(xs).objectives
+    assert objective_vectors.shape[0] == 2
+    expected_result = np.array([[ 36.92307692,  43.02777778,  81.54689076],
+                                [144.09807692, 236.02,       406.38086723]])
+    npt.assert_allclose(objective_vectors, expected_result)
